@@ -40,6 +40,10 @@ class DBMSImplementationForMarks { // you may edit anything inside this class
   int large2_size;
   int small_size;
 
+  int large1_tuple_size;
+  int large2_tuple_size;
+  int small_tuple_size;
+
   std::vector<int> large1_attribute_types;
   std::vector<int> large2_attribute_types;
   std::vector<int> small_attribute_types;
@@ -64,16 +68,25 @@ public:
     large2_size = getNumberOfTuplesInRelation(*large2);
     small_size = getNumberOfTuplesInRelation(*small);
 
+    large1_tuple_size = large1[0].size();
+    large2_tuple_size = large2[0].size();
+    small_tuple_size = small[0].size();
+
+    for(int i = 0; i < large1_tuple_size; i++){
+      large1_attribute_types.push_back(getAttributeValueType(this->large1[0][i]));
+      large2_attribute_types.push_back(getAttributeValueType(this->large2[0][i]));
+      small_attribute_types.push_back(getAttributeValueType(this->small[0][i]));
+    }
   }
 
-  void swap(int* a, int* b){
-    int t = *a;
-    *a = *b;
-    *b = t;
+  void swap(AttributeValue& a, AttributeValue& b){
+    AttributeValue t = a;
+    a = b;
+    b = t;
   }
 
-  int partition (std::vector<int> arr, int low, int high){
-    int pivot = arr[high];    // pivot
+  int partition (std::vector<AttributeValue>& arr, int low, int high){
+    AttributeValue pivot = arr[high];    // pivot
     int i = (low - 1);  // Index of smaller element
  
     for (int j = low; j <= high- 1; j++)
@@ -83,14 +96,14 @@ public:
         if (arr[j] <= pivot)
         {
             i++;    // increment index of smaller element
-            swap(&arr[i], &arr[j]);
+            swap(arr[i], arr[j]);
         }
     }
-    swap(&arr[i + 1], &arr[high]);
+    swap(arr[i + 1], arr[high]);
     return (i + 1);
   }
 
-  void quickSort(std::vector<int> arr, int low, int high){
+  void quickSort(std::vector<AttributeValue>& arr, int low, int high){
     if (low < high)
     {
         /* pi is partitioning index, arr[p] is now
@@ -110,8 +123,31 @@ public:
 
     // 1. Large1.a = Large2.a -> sort-merge join
     // a. Quicksort
-    
+    std::vector<AttributeValue> large1_a, large2_a, large_merge_join;
+    for(int i = 0; i < large1_size; i++){
+      large1_a.push_back(large1[0][i]);
+      large2_a.push_back(large2[0][i]);
+    }
+    quickSort(large1_a, 0, large1_tuple_size);
+    quickSort(large2_a, 0, large2_tuple_size);
     // b. Merge data
+    auto leftI = 0;
+    auto rightI = 0;
+    while (leftI < large1_size && rightI < large2_size) {
+      auto leftInput = large1_a[leftI];
+      auto rightInput = large2_a[rightI];
+      if(leftInput < rightInput){
+        leftI++;
+      }
+      else if(rightInput < leftInput){
+        rightI++;
+      }
+      else{
+        large_merge_join.push_back(leftInput);
+        rightI++;
+        leftI++;
+      }
+    }
     return sum;
   }
 };
