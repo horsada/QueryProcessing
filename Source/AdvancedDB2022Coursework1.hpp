@@ -121,21 +121,65 @@ public:
     auto sum = 0L;
     // You should add your implementation here...
 
-    // 1. Large1.a = Large2.a -> sort-merge join
-    // a. Quicksort
-    std::vector<AttributeValue> large1_a, large2_a, large_merge_join;
-    for(int i = 0; i < large1_size; i++){
+    std::vector<AttributeValue> large1_a, large2_a, small_a, large_merge_join, small_hash_join;
+    for(int i = 0; i < small_size; i++){
       large1_a.push_back(large1[0][i]);
       large2_a.push_back(large2[0][i]);
+      small_a.push_back(small[0][i]);
     }
-    quickSort(large1_a, 0, large1_tuple_size);
-    quickSort(large2_a, 0, large2_tuple_size);
+    // 1. Large2.a = small.a -> Hash join
+    // a. Build phase
+    std::vector<int> hashTable(small_size, -1);
+    for(size_t i = 0; i < small_size; i++) {
+      long hashValue = -1;
+      int attribute_type = getAttributeValueType(small[0][i]) == 0;
+      if(attribute_type == 0){
+        hashValue = getLongValue(small[0][i]) % 10; // hash-function
+      }
+      else{
+        break;
+      }
+      while(hashTable[hashValue] != -1){
+        hashValue = (hashValue++ % 10); // probe function
+        } 
+        hashTable[hashValue] = getLongValue(small[0][i]);
+    }
+    // b. Probe phase
+    for(size_t i = 0; i < large2_size; i++) {
+      auto probeInput = large2[0][i];
+      long hashValue = -1;
+      if(getAttributeValueType(probeInput) == 0){
+        auto hashValue = getLongValue(probeInput) % 10;
+      }
+      else{ // TODO: implement other data types
+        break;
+      }
+      while(hashTable[hashValue] != -1 &&  hashTable[hashValue] != getLongValue(probeInput)){
+        hashValue = (hashValue++ % 10);
+      }
+      if(hashTable[hashValue] == getLongValue(probeInput)){
+        small_hash_join.push_back(probeInput);
+      }
+    }
+
+    // 2. Large1.a = Large2.a -> sort-merge join
+    // a. Quicksort
+    quickSort(large1[0], 0, large1_size);
+    quickSort(large2[0], 0, large2_size);
     // b. Merge data
     auto leftI = 0;
     auto rightI = 0;
+
     while (leftI < large1_size && rightI < large2_size) {
-      auto leftInput = large1_a[leftI];
-      auto rightInput = large2_a[rightI];
+      auto leftInput = large1[0][leftI];
+      auto rightInput = large2[0][rightI];
+      if(getAttributeValueType(leftInput) == 0 && getAttributeValueType(rightInput) == 0){
+        leftInput = getLongValue(large1[0][leftI]);
+        rightInput = getLongValue(large2[0][rightI]);
+      }
+      else{
+        break;
+      }
       if(leftInput < rightInput){
         leftI++;
       }
@@ -143,7 +187,7 @@ public:
         rightI++;
       }
       else{
-        large_merge_join.push_back(leftInput);
+        large_merge_join.push_back(large1[0][leftI]);
         rightI++;
         leftI++;
       }

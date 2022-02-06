@@ -15,6 +15,7 @@ Breaking down the query:
 ## Large1.a = Large2.a
 
 - Sort-merge join
+- Implement int
 
 ## large2.a = small.a
 
@@ -28,3 +29,13 @@ Breaking down the query:
 ## sum(large1.c * large2.c * small.c)
 
 - Calculator style
+
+## TODO List
+- Deal with dirty values
+- Deal with equality problems with different data types
+
+## Explanations of features
+- Chose to use large2_size in sort-merge for loop because it will be smaller 
+than large1_size because of the hash-join with small.
+- Chose to do hash-join first because it will remove the most results 
+for the sort-merge join
