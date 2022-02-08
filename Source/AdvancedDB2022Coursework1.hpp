@@ -79,42 +79,51 @@ public:
     }
   }
 
-  void swap(AttributeValue& a, AttributeValue& b){
-    AttributeValue t = a;
+  void swap(long& a, long& b){
+    long t = a;
     a = b;
     b = t;
   }
 
-  int partition (std::vector<AttributeValue>& arr, int low, int high){
-    AttributeValue pivot = arr[high];    // pivot
+  int partition (std::vector<long>& arr_a, int low, int high){
+    long pivot = arr_a[high];    // pivot
     int i = (low - 1);  // Index of smaller element
  
     for (int j = low; j <= high- 1; j++)
     {
         // If current element is smaller than or
         // equal to pivot
-        if (arr[j] <= pivot)
+        if (arr_a[j] <= pivot)
         {
             i++;    // increment index of smaller element
-            swap(arr[i], arr[j]);
+            swap(arr_a[i], arr_a[j]);
         }
     }
-    swap(arr[i + 1], arr[high]);
+    swap(arr_a[i + 1], arr_a[high]);
     return (i + 1);
   }
 
-  void quickSort(std::vector<AttributeValue>& arr, int low, int high){
+  Relation quickSort(Relation& arr, int low, int high){
+    std::vector<long> arr_a;
+    for(int i = 0; i < arr.size(); i++){
+      arr_a.push_back(getLongValue(large1[i][0]));
+    }
     if (low < high)
     {
         /* pi is partitioning index, arr[p] is now
            at right place */
-        int pi = partition(arr, low, high);
+        int pi = partition(arr_a, low, high);
  
         // Separately sort elements before
         // partition and after partition
         quickSort(arr, low, pi - 1);
         quickSort(arr, pi + 1, high);
     }
+    
+    for(int i=0; i < arr.size(); i++){
+      arr[i][0] = arr_a[i];
+    }
+    return arr;
   }
 
   long runQuery(long threshold = 9) {
@@ -123,18 +132,18 @@ public:
 
     std::vector<AttributeValue> large1_a, large2_a, small_a, large_merge_join, small_hash_join;
     for(int i = 0; i < small_size; i++){
-      large1_a.push_back(large1[0][i]);
-      large2_a.push_back(large2[0][i]);
-      small_a.push_back(small[0][i]);
+      large1_a.push_back(large1[i][0]);
+      large2_a.push_back(large2[i][0]);
+      small_a.push_back(small[i][0]);
     }
     // 1. Large2.a = small.a -> Hash join
     // a. Build phase
     std::vector<int> hashTable(small_size, -1);
     for(size_t i = 0; i < small_size; i++) {
       long hashValue = -1;
-      int attribute_type = getAttributeValueType(small[0][i]) == 0;
+      int attribute_type = getAttributeValueType(small[i][0]) == 0;
       if(attribute_type == 0){
-        hashValue = getLongValue(small[0][i]) % 10; // hash-function
+        hashValue = getLongValue(small[i][0]) % 10; // hash-function
       }
       else{
         break;
@@ -142,11 +151,11 @@ public:
       while(hashTable[hashValue] != -1){
         hashValue = (hashValue++ % 10); // probe function
         } 
-        hashTable[hashValue] = getLongValue(small[0][i]);
+        hashTable[hashValue] = getLongValue(small[i][0]);
     }
     // b. Probe phase
     for(size_t i = 0; i < large2_size; i++) {
-      auto probeInput = large2[0][i];
+      auto probeInput = large2[i][0];
       long hashValue = -1;
       if(getAttributeValueType(probeInput) == 0){
         auto hashValue = getLongValue(probeInput) % 10;
@@ -164,18 +173,18 @@ public:
 
     // 2. Large1.a = Large2.a -> sort-merge join
     // a. Quicksort
-    quickSort(large1[0], 0, large1_size);
-    quickSort(large2[0], 0, large2_size);
+    quickSort(large1, 0, large1_size);
+    quickSort(large2, 0, large2_size);
     // b. Merge data
     auto leftI = 0;
     auto rightI = 0;
 
     while (leftI < large1_size && rightI < large2_size) {
-      auto leftInput = large1[0][leftI];
-      auto rightInput = large2[0][rightI];
+      auto leftInput = large1[leftI][0];
+      auto rightInput = large2[rightI][0];
       if(getAttributeValueType(leftInput) == 0 && getAttributeValueType(rightInput) == 0){
-        leftInput = getLongValue(large1[0][leftI]);
-        rightInput = getLongValue(large2[0][rightI]);
+        leftInput = getLongValue(large1[leftI][0]);
+        rightInput = getLongValue(large2[rightI][0]);
       }
       else{
         break;
@@ -187,7 +196,7 @@ public:
         rightI++;
       }
       else{
-        large_merge_join.push_back(large1[0][leftI]);
+        large_merge_join.push_back(large1[leftI][0]);
         rightI++;
         leftI++;
       }
