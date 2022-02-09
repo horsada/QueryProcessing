@@ -16,7 +16,7 @@ using Relation = std::vector<Tuple>;
  */
 inline size_t getAttributeValueType(AttributeValue const& value) { return value.index(); }
 inline long getLongValue(AttributeValue const& value) { return std::get<long>(value); }
-inline double getdoubleValue(AttributeValue const& value) { return std::get<double>(value); }
+inline double getDoubleValue(AttributeValue const& value) { return std::get<double>(value); }
 inline char const* getStringValue(AttributeValue const& value) {
   return std::get<char const*>(value);
 }
@@ -79,13 +79,32 @@ public:
     }
   }
 
-  void swap(long& a, long& b){
+  void swap(AttributeValue& a, AttributeValue& b){
+    AttributeValue t = a;
+    a = b;
+    b = t;
+  }
+/*
+  void swap_long(long& a, long& b){
     long t = a;
     a = b;
     b = t;
   }
 
-  int partition (std::vector<long>& arr_a, int low, int high){
+  void swap_double(double& a, double& b){
+    double t = a;
+    a = b;
+    b = t;
+  }
+
+  void swap_string(char const* a, char const* b){
+    char const* t = a;
+    a = b;
+    b = t;
+  }
+*/
+/*
+  int partition_long(std::vector<long>& arr_a, int low, int high){
     long pivot = arr_a[high];    // pivot
     int i = (low - 1);  // Index of smaller element
  
@@ -103,19 +122,116 @@ public:
     return (i + 1);
   }
 
-  Relation quickSort(Relation& arr, int low, int high){
-    std::vector<long> arr_a;
-    for(int i = 0; i < arr.size(); i++){
-      arr_a.push_back(getLongValue(large1[i][0]));
-    }
-    if (low < high)
-    {
-        /* pi is partitioning index, arr[p] is now
-           at right place */
-        int pi = partition(arr_a, low, high);
+  int partition_double(std::vector<double>& arr_a, int low, int high){
+    double pivot = arr_a[high];    // pivot
+    int i = (low - 1);  // Index of smaller element
  
-        // Separately sort elements before
-        // partition and after partition
+    for (int j = low; j <= high- 1; j++)
+    {
+        // If current element is smaller than or
+        // equal to pivot
+        if (arr_a[j] <= pivot)
+        {
+            i++;    // increment index of smaller element
+            swap_double(arr_a[i], arr_a[j]);
+        }
+    }
+    swap_double(arr_a[i + 1], arr_a[high]);
+    return (i + 1);
+  }
+
+  int partition_string(std::vector<char const*>& arr_a, int low, int high){
+    char const* pivot = arr_a[high];    // pivot
+    int i = (low - 1);  // Index of smaller element
+ 
+    for (int j = low; j <= high- 1; j++)
+    {
+        // If current element is smaller than or
+        // equal to pivot
+        if (arr_a[j] <= pivot)
+        {
+            i++;    // increment index of smaller element
+            swap_string(arr_a[i], arr_a[j]);
+        }
+    }
+    swap_string(arr_a[i + 1], arr_a[high]);
+    return (i + 1);
+  }
+*/
+
+  int partition(std::vector<AttributeValue>& arr_a, int low, int high){
+    AttributeValue pivot = arr_a[high];    // pivot
+    int i = (low - 1);  // Index of smaller element
+ 
+    for (int j = low; j < high; j++)
+    {
+        // If current element is smaller than or
+        // equal to pivot
+
+        // TODO: implement double and long 
+        if (getLongValue(arr_a[j]) <= getLongValue(pivot))
+        {
+            i++;    // increment index of smaller element
+            swap(arr_a[i], arr_a[j]);
+        }
+    }
+    swap(arr_a[i + 1], arr_a[high]);
+    return (i + 1);
+  }
+/*
+  Relation quickSort(Relation& arr, int low, int high){
+    std::vector<long> arr_a_long;
+    std::vector<double> arr_a_double;
+    std::vector<char const*> arr_a_string;
+    for(int i = 0; i < arr.size(); i++){
+      if(getAttributeValueType(large1[i][0]) == 0){
+        arr_a_long.push_back(getLongValue(large1[i][0]));
+      }
+      else if(getAttributeValueType(large1[i][0]) == 1){
+        arr_a_double.push_back(getDoubleValue(large1[i][0]));
+      }
+      else if(getAttributeValueType(large1[i][0]) == 2){
+        arr_a_string.push_back(getStringValue(large1[i][0]));
+      }
+      else{
+        // TODO
+      }
+    }
+    int pi;
+    if (low < high){
+        // pi is partitioning index, arr[p] is now at right place 
+      if(getAttributeValueType(large1[0][0]) == 0){
+        int pi = partition_long(arr_a_long, low, high);
+      }
+      else if(getAttributeValueType(large1[0][0]) == 1){
+        int pi = partition_double(arr_a_double, low, high);
+      }
+      else if(getAttributeValueType(large1[0][0]) == 2){
+        int pi = partition_string(arr_a_string, low, high);
+      }
+      else{
+        // TODO
+      }
+        // Separately sort elements before partition and after partition
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+    
+    for(int i=0; i < arr.size(); i++){
+      arr[i][0] = arr_a[i];
+    }
+    return arr;
+  }
+*/
+  Relation quickSort(Relation& arr, int low, int high){
+    std::vector<AttributeValue> arr_a;
+    for(int i = 0; i < arr.size(); i++){
+      arr_a.push_back(arr[i][0]);
+    }
+    int pi;
+    if (low < high){
+        // Separately sort elements before partition and after partition
+        pi = partition(arr_a, low, high);
         quickSort(arr, low, pi - 1);
         quickSort(arr, pi + 1, high);
     }
@@ -129,8 +245,10 @@ public:
   long runQuery(long threshold = 9) {
     auto sum = 0L;
     // You should add your implementation here...
-
-    std::vector<AttributeValue> large1_a, large2_a, small_a, large_merge_join, small_hash_join;
+    int x,y,z = 0;
+    std::vector<AttributeValue> large1_a, large2_a, small_a;
+    Relation large_merge_join, small_hash_join;
+    std::vector<AttributeValue> threshold_calc;
     for(int i = 0; i < small_size; i++){
       large1_a.push_back(large1[i][0]);
       large2_a.push_back(large2[i][0]);
@@ -167,24 +285,35 @@ public:
         hashValue = (hashValue++ % 10);
       }
       if(hashTable[hashValue] == getLongValue(probeInput)){
-        small_hash_join.push_back(probeInput);
+        for(int j = 0; j < small_hash_join.size(); j++){
+            small_hash_join[j].push_back(large2[j][1]);
+            small_hash_join[j].push_back(large2[j][2]);
+        }
       }
     }
 
-    // 2. Large1.a = Large2.a -> sort-merge join
+    // 2. small_hash_join = large1 -> sort-merge join
     // a. Quicksort
-    quickSort(large1, 0, large1_size);
-    quickSort(large2, 0, large2_size);
+    quickSort(small_hash_join, 0, small_size);
+    quickSort(large1, 0, large2_size);
     // b. Merge data
     auto leftI = 0;
     auto rightI = 0;
 
-    while (leftI < large1_size && rightI < large2_size) {
-      auto leftInput = large1[leftI][0];
-      auto rightInput = large2[rightI][0];
+    while (leftI < small_hash_join.size() && rightI < large2_size) {
+      auto leftInput = small_hash_join[leftI][0];
+      auto rightInput = large1[rightI][0];
       if(getAttributeValueType(leftInput) == 0 && getAttributeValueType(rightInput) == 0){
-        leftInput = getLongValue(large1[leftI][0]);
-        rightInput = getLongValue(large2[rightI][0]);
+        leftInput = getLongValue(small_hash_join[leftI][0]);
+        rightInput = getLongValue(large1[rightI][0]);
+      }
+      else if(getAttributeValueType(leftInput) == 1 && getAttributeValueType(rightInput) == 1){
+        leftInput = getDoubleValue(small_hash_join[leftI][0]);
+        rightInput = getDoubleValue(large1[rightI][0]);
+      }
+      else if(getAttributeValueType(leftInput) == 2 && getAttributeValueType(rightInput) == 2){
+        leftInput = getStringValue(small_hash_join[leftI][0]);
+        rightInput = getStringValue(large1[rightI][0]);
       }
       else{
         break;
@@ -196,10 +325,22 @@ public:
         rightI++;
       }
       else{
-        large_merge_join.push_back(large1[leftI][0]);
+        large_merge_join.push_back(small_hash_join[leftI]);
+        for(int i = 0; i < large_merge_join.size(); i++){
+            large_merge_join[i].push_back(large1[rightI][1]);
+            large_merge_join[i].push_back(large1[rightI][2]);
+        }
         rightI++;
         leftI++;
       }
+    }
+
+    for(int i = 0; i < large_merge_join.size(); i++){
+      if(z*getLongValue(large_merge_join[i][0]) + y*getLongValue(large_merge_join[i][4])
+       + x*getLongValue(large_merge_join[i][6]) > threshold){
+         sum += getLongValue(large_merge_join[i][2])*getLongValue(large_merge_join[i][5])
+         *getLongValue(large_merge_join[i][7]);
+       }
     }
     return sum;
   }
