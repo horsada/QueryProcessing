@@ -1,0 +1,43 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/CMakeFiles/googlebenchmark"
+		},
+		{
+			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/CMakeFiles/googlebenchmark.rule"
+		},
+		{
+			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/CMakeFiles/googlebenchmark-complete.rule"
+		},
+		{
+			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-stamp/googlebenchmark-install.rule"
+		},
+		{
+			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-stamp/googlebenchmark-mkdir.rule"
+		},
+		{
+			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-stamp/googlebenchmark-download.rule"
+		},
+		{
+			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-stamp/googlebenchmark-update.rule"
+		},
+		{
+			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-stamp/googlebenchmark-patch.rule"
+		},
+		{
+			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-stamp/googlebenchmark-configure.rule"
+		},
+		{
+			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-stamp/googlebenchmark-build.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"googlebenchmark"
+		],
+		"name" : "googlebenchmark"
+	}
+}

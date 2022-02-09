@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Tests.dir/Source/AdvancedDB2022Coursework1.cpp.o CMakeFiles/Tests.dir/Tests/AdvancedDB2022Coursework1Tests.cpp.o  -o Tests 
