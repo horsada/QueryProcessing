@@ -245,7 +245,7 @@ public:
   long runQuery(long threshold = 9) {
     auto sum = 0L;
     // You should add your implementation here...
-    int x,y,z = 0;
+    int x,y,z = 1;
     std::vector<AttributeValue> large1_a, large2_a, small_a;
     Relation large_merge_join, small_hash_join;
     std::vector<AttributeValue> threshold_calc;
