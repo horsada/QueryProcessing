@@ -3,10 +3,9 @@
 #include <tuple>
 #include <variant>
 #include <vector>
-#include <string> // TODO: Remove!!
 #include <iostream>
 // YOU MAY NOT ADD ANY OTHER INCLUDES!!!
-using AttributeValue = std::variant<long, double, std::string>;
+using AttributeValue = std::variant<long, double, char const*>;
 using Tuple = std::vector<AttributeValue>;
 using Relation = std::vector<Tuple>;
 
@@ -17,8 +16,8 @@ using Relation = std::vector<Tuple>;
 inline size_t getAttributeValueType(AttributeValue const& value) { return value.index(); }
 inline long getLongValue(AttributeValue const& value) { return std::get<long>(value); }
 inline double getDoubleValue(AttributeValue const& value) { return std::get<double>(value); }
-inline std::string getStringValue(AttributeValue const& value) {
-  return std::get<std::string>(value);
+inline char const* getStringValue(AttributeValue const& value) {
+  return std::get<char const*>(value);
 }
 inline size_t getNumberOfValuesInTuple(Tuple const& t) { return t.size(); }
 inline size_t getNumberOfTuplesInRelation(Relation const& t) { return t.size(); }
@@ -118,11 +117,14 @@ void printRelation(Relation a){
   // for finding index of element
   int getIndex(std::vector<AttributeValue>::iterator beg, 
     std::vector<AttributeValue>::iterator end, size_t type, AttributeValue val){
+    printf("Entered getIndex\n");
     int index = -1;
     for (auto it = beg; it != end; ++it){
       if(type == 0){
-        if (getLongValue(*beg) == getLongValue(val)){
-          index = std::distance(it, beg); 
+        printf("Entered type == 0 if statement\n");
+        if(getLongValue(*it) == getLongValue(val)){
+          printf(("Entered getLongValue(*beg) == getLongValue(val)\n"));
+          index = abs(std::distance(it, beg)); 
         }
       }
       else if(type == 1){
@@ -140,6 +142,7 @@ void printRelation(Relation a){
         printf("Incorrect type, returning -1\n");
       }  
     }
+    printf("Returning index = %d", index);
     return index;
   }
 
@@ -196,7 +199,7 @@ long TestrunQuery(Relation large1, Relation large2, Relation small, long thresho
     for(size_t i = 0; i < large2.size(); i++) {
       long long_hashValue = -1;
       double double_hashValue = -1.0;
-      char* string_hashValue = nullptr;
+      long string_hashValue = -1;
       int attribute_type = getAttributeValueType(large2.at(i).at(0));
       if(attribute_type == 0){
         long_hashValue = getLongValue(large2.at(i).at(0)) % 10; // hash-function
@@ -225,9 +228,17 @@ long TestrunQuery(Relation large1, Relation large2, Relation small, long thresho
         printf("New hashtable value: %d\n", hashTable.at((int)double_hashValue));
       }
       else if(attribute_type == 2){
-        //string_hashValue = getStringValue(large2.at(i).at(0)) % 10; // hash-function
-        //printf("After hash function. Hash value = %f\n", double_hashValue);
-        printf("After hash function in string. TODO: Fix\n");
+        string_hashValue = atoi(getStringValue(large2.at(i).at(0))) % 10; // hash-function
+        printf("After hash function in string. Hash value = %f\n", string_hashValue);
+        while(hashTable[string_hashValue] != -1){
+          printf("Entered while hashTable[hashValue] != -1. hashValue = %d\n", string_hashValue);
+          // probe function
+          string_hashValue += 1; 
+          string_hashValue = string_hashValue % 10;
+        } 
+        printf("Entering value into hashTable\n");
+        hashTable.at(string_hashValue) = atoi(getStringValue(large2.at(i).at(0)));
+        printf("New hashtable value: %d\n", hashTable.at(string_hashValue));
       }
       else{
         printf("Incorrect type\n");
@@ -243,7 +254,7 @@ long TestrunQuery(Relation large1, Relation large2, Relation small, long thresho
       AttributeValue probeInput = small.at(i).at(0);
       long long_hashValue = -1;
       double double_hashValue = -1.0;
-      char* string_hashvalue = nullptr;
+      long string_hashValue = -1;
       if(getAttributeValueType(probeInput) == 0){
         long_hashValue = abs(getLongValue(probeInput) % 10);
         printf("Before while loop, probeInput type Long. probeInput = %d, hashValue = %d\n", 
@@ -282,9 +293,24 @@ long TestrunQuery(Relation large1, Relation large2, Relation small, long thresho
         }
       }
       else if(getAttributeValueType(probeInput) == 2){
-        //hashValue = abs(getStringValue(probeInput) % 10);)
-        // TODO: FIX
         printf("Entered string probe phase\n");
+        string_hashValue = atoi(getStringValue(probeInput)) % 10;
+        printf("Before while loop, probeInput type String. probeInput = %d, hashValue = %d\n", 
+        atoi(getStringValue(probeInput)), string_hashValue);
+        printf("Relation small size: %d\n", small.size());
+        printf("Relation large2 size: %d\n", large2.size());
+        while(hashTable.at(string_hashValue) != -1 &&  hashTable.at(string_hashValue) 
+        != atoi(getStringValue(probeInput))){
+          string_hashValue = (string_hashValue++) % 10;
+      }
+        if(hashTable.at(string_hashValue) == atoi(getStringValue(probeInput))){
+          small_hash_join.push_back(small.at(i));
+          printf("Entered type=String if statement\n");
+          // find index of a value in large2 table:
+          int index = getIndex(large2_a.begin(), large2_a.end(), 2, probeInput);
+          small_hash_join.at(i).push_back(large2.at(index).at(1));
+          small_hash_join.at(i).push_back(large2.at(index).at(2));
+        }
       }
       else{
         break;
@@ -316,7 +342,6 @@ long TestrunQuery(Relation large1, Relation large2, Relation small, long thresho
       auto rightInput = large1.at(rightI).at(0);
       size_t leftInputType = getAttributeValueType(leftInput);
       size_t rightInputType = getAttributeValueType(rightInput);
-      printf("leftInput: %d, rightInput: %d\n", getLongValue(leftInput), getLongValue(rightInput));
       if(leftInputType == 0 && rightInputType == 0){
         leftInput = getLongValue(small_hash_join.at(leftI).at(0));
         rightInput = getLongValue(large1.at(rightI).at(0));
@@ -324,9 +349,9 @@ long TestrunQuery(Relation large1, Relation large2, Relation small, long thresho
       else if(leftInputType == 1 && rightInputType == 1){
         leftInput = getDoubleValue(small_hash_join.at(leftI).at(0));
         rightInput = getDoubleValue(large1.at(rightI).at(0));
-
       }
       else if(leftInputType == 2 && rightInputType == 2){
+        printf("Entered String merge\n");
         leftInput = getStringValue(small_hash_join.at(leftI).at(0));
         rightInput = getStringValue(large1.at(rightI).at(0));
       }
@@ -377,20 +402,25 @@ long TestrunQuery(Relation large1, Relation large2, Relation small, long thresho
 /*
 */
 int main(){
-    printf("Entered main\n");
-    fflush(stdout);
+  printf("Entered main\n");
+  fflush(stdout);
 
-    /* Test 1
-    auto a = Relation{Tuple{1L, 20L, 3L}};
-    auto b = Relation{Tuple{1L, 15L, 3L}};
-    auto c = Relation{Tuple{1L, 25L, 3L}};
-    long sum = TestrunQuery(a,b,c);
-    */
+  /* Test 1
+  auto a = Relation{Tuple{1L, 20L, 3L}};
+  auto b = Relation{Tuple{1L, 15L, 3L}};
+  auto c = Relation{Tuple{1L, 25L, 3L}};
+  */
 
-   // Test 2
-   auto a = Relation{Tuple{1L, 20L, 6L}, Tuple{1L, 20L, 3L}};
-   auto b = Relation{Tuple{1L, 20L, 7L}, Tuple{1L, 17L, 4L}};
-   auto c = Relation{Tuple{1L, 20L, 8L}, Tuple{1L, 29L, 5L}};
-    long sum = TestrunQuery(a,b,c);
-    printf("Sum: %i\n", sum);
+  // Test 2
+  /*
+  auto a = Relation{Tuple{1L, 20L, 6L}, Tuple{1L, 20L, 3L}};
+  auto b = Relation{Tuple{1L, 20L, 7L}, Tuple{1L, 17L, 4L}};
+  auto c = Relation{Tuple{1L, 20L, 8L}, Tuple{1L, 29L, 5L}};
+  */
+  // Test 3
+  auto a = Relation{Tuple{"one", 20L, 3L}};
+  auto b = Relation{Tuple{"one", 17L, 4L}}; // //
+  auto c = Relation{Tuple{"one", 29L, 5L}};
+  long sum = TestrunQuery(a,b,c);
+  printf("Sum: %i\n", sum);
 }
