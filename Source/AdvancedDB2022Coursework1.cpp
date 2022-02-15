@@ -1,3 +1,5 @@
+#include "AdvancedDB2022Coursework1.hpp"
+/*
 #include <array>
 #include <cstdlib>
 #include <tuple>
@@ -12,7 +14,7 @@ using Relation = std::vector<Tuple>;
 /**
  * 0 is long int, 1 is double, 2 is a c-string
  */
-
+/*
 inline size_t getAttributeValueType(AttributeValue const& value) { return value.index(); }
 inline long getLongValue(AttributeValue const& value) { return std::get<long>(value); }
 inline double getDoubleValue(AttributeValue const& value) { return std::get<double>(value); }
@@ -396,11 +398,10 @@ long TestrunQuery(Relation large1, Relation large2, Relation small, long thresho
          *getLongValue(small_hash_join[i][6]);
        }
     }
-    */
     return sum;
   }
-/*
-*/
+
+
 int main(){
   printf("Entered main\n");
   fflush(stdout);
@@ -416,7 +417,7 @@ int main(){
   auto a = Relation{Tuple{1L, 20L, 6L}, Tuple{1L, 20L, 3L}};
   auto b = Relation{Tuple{1L, 20L, 7L}, Tuple{1L, 17L, 4L}};
   auto c = Relation{Tuple{1L, 20L, 8L}, Tuple{1L, 29L, 5L}};
-  */
+
   // Test 3
   auto a = Relation{Tuple{"one", 20L, 3L}};
   auto b = Relation{Tuple{"one", 17L, 4L}}; // //
@@ -424,3 +425,4 @@ int main(){
   long sum = TestrunQuery(a,b,c);
   printf("Sum: %i\n", sum);
 }
+*/
