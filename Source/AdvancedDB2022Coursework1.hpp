@@ -202,7 +202,7 @@ void printRelation(Relation a){
     return index;
   }
 
-long TestrunQuery(Relation large1, Relation large2, Relation small, long threshold = 9) {
+long runQuery(long threshold = 9) {
     auto sum = 0L;
     // You should add your implementation here...
     int x = 1;
@@ -444,14 +444,6 @@ long TestrunQuery(Relation large1, Relation large2, Relation small, long thresho
          *getLongValue(small_hash_join.at(i).at(6));
        }
     }
-    for(int i = 0; i < small_hash_join.size(); i++){
-      if(z*getLongValue(small_hash_join[i][1]) + y*getLongValue(small_hash_join[i][3])
-       + x*getLongValue(small_hash_join[i][5]) > threshold){
-         sum += getLongValue(small_hash_join[i][2])*getLongValue(small_hash_join[i][4])
-         *getLongValue(small_hash_join[i][6]);
-       }
-    }
-    
     return sum;
   }
 };
