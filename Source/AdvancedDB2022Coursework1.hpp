@@ -64,107 +64,101 @@ public:
     }
     // You should add your implementation here...
 
-    large1_size = getNumberOfTuplesInRelation(*large1);
-    large2_size = getNumberOfTuplesInRelation(*large2);
-    small_size = getNumberOfTuplesInRelation(*small);
-
-    large1_tuple_size = large1[0].size();
-    large2_tuple_size = large2[0].size();
-    small_tuple_size = small[0].size();
-
-    for(int i = 0; i < large1_tuple_size; i++){
-      large1_attribute_types.push_back(getAttributeValueType(this->large1[0][i]));
-      large2_attribute_types.push_back(getAttributeValueType(this->large2[0][i]));
-      small_attribute_types.push_back(getAttributeValueType(this->small[0][i]));
-    }
   }
 void printRelation(Relation a){
     for(int i = 0; i < a.size(); i++){
         printf("i: %d\n", i); 
         for(int j = 0; j < a[i].size(); j++){
           if(getAttributeValueType(a.at(i).at(j)) == 0){
-            printf("j: %d, value: %d\n", j, getLongValue(a.at(i).at(j)));
+            //printf("j: %d, value: %d\n", j, getLongValue(a.at(i).at(j)));
           }
           else if(getAttributeValueType(a.at(i).at(j)) == 1){
-            printf("j: %d, value: %d\n", j, getDoubleValue(a.at(i).at(j)));
+            //printf("j: %d, value: %d\n", j, getDoubleValue(a.at(i).at(j)));
           }
           else if(getAttributeValueType(a.at(i).at(j)) == 2){
-            printf("j: %d, value: %d\n", j, getStringValue(a.at(i).at(j)));
+            if(getStringValue(a.at(i).at(j)) == nullptr){
+              continue;
+            }
+            //printf("j: %d, value: %d\n", j, getStringValue(a.at(i).at(j)));
           }
           else{
-            printf("Incorrect type\n");
+            //printf("Incorrect type\n");
           }
         }
     }
 }
 
   void Testswap(AttributeValue& a, AttributeValue& b){
-    printf("Entered Testswap\n, a = %d, b = %d\n", a, b);
+    //printf("Entered Testswap\n, a = %d, b = %d\n", a, b);
     AttributeValue t = a;
     a = b;
     b = t;
   }
 
   int Testpartition(Relation& arr, int low, int high){
-    printf("high =  %d\n", high);
+    //printf("high =  %d\n", high);
     AttributeValue pivot = arr.at(high-1).at(0);    // pivot
     int i = (low - 1);  // Index of smaller element
-    printf("Pivot = %d, Before partition for loop\n", pivot);
+    //printf("Pivot = %d, Before partition for loop\n", pivot);
     for (int j = low; j < high; j++)
     {
         // If current element is smaller than or
         // equal to pivot
-        printf("Entered partition for loop\n");
-        // TODO: implement double and long 
+        //printf("Entered partition for loop\n");
         if( (getAttributeValueType(pivot) == 0) && (getAttributeValueType(arr.at(j).at(0)) == 0) ){
           if (getLongValue(arr.at(j).at(0)) <= getLongValue(pivot)){
-            printf("Entered partition long if statement\n");
+            //printf("Entered partition long if statement\n");
             i++;    // increment index of smaller element
             Testswap(arr.at(i).at(0), arr.at(j).at(0));
           }
         }
         else if( (getAttributeValueType(pivot) == 1) && (getAttributeValueType(arr.at(j).at(0)) == 1) ){
           if ((int)getDoubleValue(arr.at(j).at(0)) <= (int)getDoubleValue(pivot)){
-            printf("Entered partition double if statement\n");
+            //printf("Entered partition double if statement\n");
             i++;    // increment index of smaller element
             Testswap(arr.at(i).at(0), arr.at(j).at(0));
           }
         }
         else if( (getAttributeValueType(pivot) == 2) && (getAttributeValueType(arr.at(j).at(0)) == 2) ){
           if (getStringValue(arr.at(j).at(0)) <= getStringValue(pivot)){
-            printf("Entered partition string if statement\n");
+            //printf("Entered partition string if statement\n");
             i++;    // increment index of smaller element
             Testswap(arr.at(i).at(0), arr.at(j).at(0));
           }
         }
         else{
-          printf("Incorrect types\n");
+          //printf("Incorrect types\n");
         }
     }
-    printf("After partition if statement. i = %d\n", i);
+    //printf("After partition if statement. i = %d\n", i);
     if((i+1) < (high-1)){
       if(getAttributeValueType(arr.at(i+1).at(0)) == getAttributeValueType(arr.at(high-1).at(0))){
         Testswap(arr.at(i + 1).at(0), arr.at(high-1).at(0));
       }
     }
-    printf("Before returning from partition\n");
+    //printf("Before returning from partition\n");
     return (i + 1);
   }
 
   void TestquickSort(Relation& arr, int low, int high){
-    printf("Entered Quicksort\n");
+    //printf("Entered Quicksort\n");
     std::vector<AttributeValue> arr_a;
     for(int i = 0; i < arr.size(); i++){
+      // check for nullptr
+      if(getAttributeValueType(arr.at(i).at(0)) == 2){
+        if(getStringValue(arr.at(i).at(0)) == nullptr);
+        continue;
+      }
       arr_a.push_back(arr.at(i).at(0));
     }
     int pi;
-    printf("After arr_a pushback\n");
-    printf("arr_a size: %d\n", arr_a.size());
+    //printf("After arr_a pushback\n");
+    //printf("arr_a size: %d\n", arr_a.size());
     if (low < high){
         // Separately sort elements before partition and after partition
-        printf("Before Testpartition\n");
+        //printf("Before Testpartition\n");
         pi = Testpartition(arr, low, high);
-        printf("After Testpartition\n");
+        //printf("After Testpartition\n");
         TestquickSort(arr, low, pi - 1);
         TestquickSort(arr, pi + 1, high);
     }
@@ -175,35 +169,43 @@ void printRelation(Relation a){
     std::vector<AttributeValue>::iterator end, size_t type, AttributeValue val){
     printf("Entered getIndex\n");
     int index = -1;
+    size_t beg_type = getAttributeValueType(*beg);
     for (auto it = beg; it != end; ++it){
-      if(type == 0){
-        printf("Entered type == 0 if statement\n");
+      if(type == 0 && beg_type == 0){
+        //printf("Entered type == 0 if statement of getIndex\n");
+        //printf("Before for loop. Beg = %d", getLongValue(*beg));
+        //printf("getLongValue(*it) = %d, getLongValue(val) = %d\n", 
+        //getLongValue(*it), getLongValue(val));
         if(getLongValue(*it) == getLongValue(val)){
-          printf(("Entered getLongValue(*beg) == getLongValue(val)\n"));
+          //printf("Entered getLongValue(*beg) == getLongValue(val)\n");
           index = abs(std::distance(it, beg)); 
+          break;
         }
       }
-      else if(type == 1){
-        if ((int)getDoubleValue(*beg) == (int)getDoubleValue(val)){
+      else if(type == 1 && beg_type == 1){
+        if ((int)getDoubleValue(*it) == (int)getDoubleValue(val)){
+          //printf("Entered type == 1 if statement\n");
           index = std::distance(it, beg); 
-          return index;
+          break;
         }
       }
-      else if(type == 2){
-        if (getStringValue(*beg) == getStringValue(val)){
-          index = std::distance(it, beg); 
+      else if(type == 2 && beg_type == 2){
+        if (getStringValue(*it) == getStringValue(val)){
+          //printf("Entered type == 2 if statement\n");
+          index = std::distance(it, beg);
+          break;
         }
       }
       else{
-        printf("Incorrect type, returning -1\n");
+        continue;
       }  
     }
-    printf("Returning index = %d", index);
+    printf("Returning index = %d\n", index);
     return index;
   }
 
 long runQuery(long threshold = 9) {
-    auto sum = 0L;
+    auto sum = 1L;
     // You should add your implementation here...
     int x = 1;
     int y = 1;
@@ -211,7 +213,7 @@ long runQuery(long threshold = 9) {
     std::vector<AttributeValue> large1_a, large2_a, small_a;
     Relation small_hash_join;
     std::vector<AttributeValue> threshold_calc;
-
+    printf("Before creating large1_a and large2_a\n");
     // creating large2_a and large1_a
     for(int i = 0; i < large2.size(); i++){
       size_t val = getAttributeValueType(large2.at(i).at(0));
@@ -249,9 +251,6 @@ long runQuery(long threshold = 9) {
     // a. Build phase
     std::vector<long> hashTable(large2.size()*2, -1);
     printf("hashTable (size = %d):\n", hashTable.size());
-    for(int i = 0; i < hashTable.size(); i++){
-      printf("hashTable at index %d: %d (should be -1)\n", i, hashTable.at(i));
-    }
     for(size_t i = 0; i < large2.size(); i++) {
       long long_hashValue = -1;
       double double_hashValue = -1.0;
@@ -284,7 +283,12 @@ long runQuery(long threshold = 9) {
         printf("New hashtable value: %d\n", hashTable.at((int)double_hashValue));
       }
       else if(attribute_type == 2){
-        string_hashValue = atoi(getStringValue(large2.at(i).at(0))) % 10; // hash-function
+        if(getStringValue(large2.at(i).at(0)) != nullptr){
+          string_hashValue = atoi(getStringValue(large2.at(i).at(0))) % 10; // hash-function
+        }
+        else{
+          continue;
+        }
         printf("After hash function in string. Hash value = %f\n", string_hashValue);
         while(hashTable[string_hashValue] != -1){
           printf("Entered while hashTable[hashValue] != -1. hashValue = %d\n", string_hashValue);
@@ -301,10 +305,11 @@ long runQuery(long threshold = 9) {
       }
     }
     printf("After build phase\n");
-    printf("hashTable:\n");
+    /*printf("hashTable:\n");
     for(int i = 0; i < hashTable.size(); i++){
       printf("hashTable at index %d: %d\n", i, hashTable.at(i));
     }
+    */
     // b. Probe phase
     for(int i = 0; i < small.size(); i++) {
       AttributeValue probeInput = small.at(i).at(0);
@@ -321,10 +326,13 @@ long runQuery(long threshold = 9) {
           long_hashValue = (long_hashValue++) % 10;
       }
         if(hashTable.at(long_hashValue) == getLongValue(probeInput)){
+          int index = getIndex(large2_a.begin(), large2_a.end(), 0, probeInput);
+          if(index == -1){
+            continue;
+          }
           small_hash_join.push_back(small.at(i));
           printf("Entered type=Long if statement\n");
           // find index of a value in large2 table:
-          int index = getIndex(large2_a.begin(), large2_a.end(), 0, probeInput);
           small_hash_join.at(i).push_back(large2.at(index).at(1));
           small_hash_join.at(i).push_back(large2.at(index).at(2));
         }
@@ -341,16 +349,24 @@ long runQuery(long threshold = 9) {
       }
         if(hashTable.at(double_hashValue) == getDoubleValue(probeInput)){
           printf("Entered type=Double if statement\n");
+          int index = getIndex(large2_a.begin(), large2_a.end(), 1, probeInput);
+          if(index == -1){
+            continue;
+          }
           small_hash_join.push_back(small.at(i));
           // find index of a value in large2 table:
-          int index = getIndex(large2_a.begin(), large2_a.end(), 1, probeInput);
           small_hash_join.at(i).push_back(large2.at(index).at(1));
           small_hash_join.at(i).push_back(large2.at(index).at(2));
         }
       }
       else if(getAttributeValueType(probeInput) == 2){
         printf("Entered string probe phase\n");
-        string_hashValue = atoi(getStringValue(probeInput)) % 10;
+        if(getStringValue(probeInput) == nullptr){
+          continue;
+        }
+        else{
+          string_hashValue = atoi(getStringValue(probeInput)) % 10;
+        }
         printf("Before while loop, probeInput type String. probeInput = %d, hashValue = %d\n", 
         atoi(getStringValue(probeInput)), string_hashValue);
         printf("Relation small size: %d\n", small.size());
@@ -360,10 +376,13 @@ long runQuery(long threshold = 9) {
           string_hashValue = (string_hashValue++) % 10;
       }
         if(hashTable.at(string_hashValue) == atoi(getStringValue(probeInput))){
+          int index = getIndex(large2_a.begin(), large2_a.end(), 2, probeInput);
+          if(index == -1){
+            continue;
+          }
           small_hash_join.push_back(small.at(i));
           printf("Entered type=String if statement\n");
           // find index of a value in large2 table:
-          int index = getIndex(large2_a.begin(), large2_a.end(), 2, probeInput);
           small_hash_join.at(i).push_back(large2.at(index).at(1));
           small_hash_join.at(i).push_back(large2.at(index).at(2));
         }
@@ -412,7 +431,7 @@ long runQuery(long threshold = 9) {
         rightInput = getStringValue(large1.at(rightI).at(0));
       }
       else{
-        break;
+        printf("Incorrect type\n");
       }
       if(leftInput < rightInput){
         leftI++;
@@ -429,21 +448,40 @@ long runQuery(long threshold = 9) {
       }
     }
     printf("Finish merge sort\n");
-    printf("small_hash_join (size = %d , %d): \n", small_hash_join.size(), small_hash_join[0].size());
+    printf("small_hash_join (size = %d): \n", small_hash_join.size());
     printRelation(small_hash_join);
 
     long calc = 0;
     printf("calc before for loop: %d\n", calc);
     for(int i = 0; i < small_hash_join.size(); i++){
-      calc = z*getLongValue(small_hash_join.at(i).at(1)) + y*getLongValue(small_hash_join.at(i).at(3))
-       + x*getLongValue(small_hash_join.at(i).at(5));
-      printf("Calc after loop: %d\n", calc);
-      if(calc > threshold){
-         printf("Entered threshold if statement\n");
-         sum += getLongValue(small_hash_join.at(i).at(2))*getLongValue(small_hash_join.at(i).at(4))
-         *getLongValue(small_hash_join.at(i).at(6));
-       }
+      if(small_hash_join.at(i).size() > 1){
+      calc += z*getLongValue(small_hash_join.at(i).at(1));
+      }
+      if(small_hash_join.at(i).size() > 3){
+        printf("Entered if(small_hash_join.at(i).size() > 2)\n");
+        calc += y*getLongValue(small_hash_join.at(i).at(3));
+      }
+      if(small_hash_join.at(i).size() > 5){
+        printf("Entered if(small_hash_join.at(i).size() > 4)\n");
+        calc += x*getLongValue(small_hash_join.at(i).at(5));
+      }
     }
+    printf("Calc after loop: %d\n", calc);
+    if(calc > threshold){
+      printf("Entered threshold if statement\n");
+    for(int i = 0; i < small_hash_join.size(); i++){
+        if(small_hash_join.at(i).size() > 2){
+         sum *= getLongValue(small_hash_join.at(i).at(2));
+        }
+         if(small_hash_join.at(i).size() > 4){
+          sum *= getLongValue(small_hash_join.at(i).at(4));
+          }
+        if(small_hash_join.at(i).size() > 6){
+          sum *= getLongValue(small_hash_join.at(i).at(6));
+        }
+      }
+    }
+    printf("sum = %d, End of testcase\n", sum);
     return sum;
   }
 };
