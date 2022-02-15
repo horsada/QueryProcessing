@@ -163,8 +163,9 @@ void printRelation(Relation a){
     std::vector<AttributeValue>::iterator end, size_t type, AttributeValue val){
     //printf("Entered getIndex\n");
     int index = -1;
-    size_t beg_type = getAttributeValueType(*beg);
+    //size_t beg_type = getAttributeValueType(*beg);
     for (auto it = beg; it != end; ++it){
+      size_t beg_type = getAttributeValueType(*it);
       if(type == 0 && beg_type == 0){
         //printf("Entered type == 0 if statement of getIndex\n");
         //printf("Before for loop. Beg = %d", getLongValue(*beg));
@@ -179,14 +180,14 @@ void printRelation(Relation a){
       else if(type == 1 && beg_type == 1){
         if ((int)getDoubleValue(*it) == (int)getDoubleValue(val)){
           //printf("Entered type == 1 if statement\n");
-          index = std::distance(it, beg); 
+          index = abs(std::distance(it, beg)); 
           break;
         }
       }
       else if(type == 2 && beg_type == 2){
-        if (getStringValue(*it) == getStringValue(val)){
-          //printf("Entered type == 2 if statement\n");
-          index = std::distance(it, beg);
+        if (atoi(getStringValue(*it)) == atoi(getStringValue(val))){
+          printf("Entered type == 2 if statement\n");
+          index = abs(std::distance(it, beg));
           break;
         }
       }
@@ -199,7 +200,7 @@ void printRelation(Relation a){
   }
 
 long runQuery(long threshold = 9) {
-    auto sum = 1L;
+    auto sum = 0L;
     // You should add your implementation here...
     int x = 1;
     int y = 1;
@@ -354,30 +355,32 @@ long runQuery(long threshold = 9) {
         }
       }
       else if(getAttributeValueType(probeInput) == 2){
-        //printf("Entered string probe phase\n");
+        printf("Entered string probe phase\n");
         if(getStringValue(probeInput) == nullptr){
           continue;
         }
         else{
-         // printf("getStringValue(probeInput) = %d\n", atoi(getStringValue(probeInput)));
+          printf("getStringValue(probeInput) = %d\n", atoi(getStringValue(probeInput)));
           string_hashValue = atoi(getStringValue(probeInput)) % 10;
         }
-        //printf("Before while loop, probeInput type String. probeInput = %d, hashValue = %d\n", 
-        //atoi(getStringValue(probeInput)), string_hashValue);
-        //printf("Relation small size: %d\n", small.size());
-        //printf("Relation large2 size: %d\n", large2.size());
+        printf("Before while loop, probeInput type String. probeInput = %d, hashValue = %d\n", 
+        atoi(getStringValue(probeInput)), string_hashValue);
+        printf("Relation small size: %d\n", small.size());
+        printf("Relation large2 size: %d\n", large2.size());
         while(hashTable.at(string_hashValue) != -1 &&  hashTable.at(string_hashValue) 
         != atoi(getStringValue(probeInput))){
           string_hashValue = (string_hashValue++) % 10;
         }
         if(hashTable.at(string_hashValue) == atoi(getStringValue(probeInput))){
           int index = getIndex(large2_a.begin(), large2_a.end(), 2, probeInput);
+          printf("index = %d\n", index);
           if(index == -1){
             //printf("Entered index == -1 of string probe\n");
             continue;
           }
           small_hash_join.push_back(small.at(i));
-          //printf("Entered type=String if statement\n");
+          printf("Entered type=String if statement\n");
+          printf("Index = %d\n", index);
           // find index of a value in large2 table:
           small_hash_join.at(i).push_back(large2.at(index).at(1));
           small_hash_join.at(i).push_back(large2.at(index).at(2));
@@ -479,20 +482,28 @@ long runQuery(long threshold = 9) {
         calc += x*getLongValue(small_hash_join.at(i).at(5));
       }
     }
+
+    std::vector<long> c_sums;
     //printf("Calc after loop: %d\n", calc);
     if(calc > threshold){
       //printf("Entered threshold if statement\n");
     for(int i = 0; i < small_hash_join.size(); i++){
+        long c_sum = 1;
         if(small_hash_join.at(i).size() > 2){
-         sum *= getLongValue(small_hash_join.at(i).at(2));
+         c_sum *= getLongValue(small_hash_join.at(i).at(2));
         }
          if(small_hash_join.at(i).size() > 4){
-          sum *= getLongValue(small_hash_join.at(i).at(4));
+          c_sum *= getLongValue(small_hash_join.at(i).at(4));
           }
         if(small_hash_join.at(i).size() > 6){
-          sum *= getLongValue(small_hash_join.at(i).at(6));
+          c_sum *= getLongValue(small_hash_join.at(i).at(6));
         }
+        c_sums.push_back(c_sum);
       }
+    }
+
+    for(int i = 0; i < c_sums.size(); i++){
+      sum += c_sums.at(i);
     }
     printf("sum = %d, End of testcase\n", sum);
     return sum;
