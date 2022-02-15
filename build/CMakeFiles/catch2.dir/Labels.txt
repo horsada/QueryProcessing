@@ -1,0 +1,13 @@
+# Target labels
+ catch2
+# Source files and their labels
+/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/CMakeFiles/catch2
+/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/CMakeFiles/catch2.rule
+/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/CMakeFiles/catch2-complete.rule
+/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-install.rule
+/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-mkdir.rule
+/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-download.rule
+/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-update.rule
+/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-patch.rule
+/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-configure.rule
+/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-build.rule
