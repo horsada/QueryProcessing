@@ -1,7 +1,7 @@
 # Make file names absolute:
 #
-get_filename_component(filename "/homes/ah2719/.cmake-downloads/v2.13.6.tar.gz" ABSOLUTE)
-get_filename_component(directory "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2" ABSOLUTE)
+get_filename_component(filename "/home/ah2719/.cmake-downloads/v2.13.6.tar.gz" ABSOLUTE)
+get_filename_component(directory "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2" ABSOLUTE)
 
 message(STATUS "extracting...
      src='${filename}'

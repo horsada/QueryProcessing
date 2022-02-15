@@ -1,8 +1,8 @@
-# Install script for directory: /homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark
+# Install script for directory: /home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/deps")
+  set(CMAKE_INSTALL_PREFIX "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/deps")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/cmake_install.cmake")
-  include("/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/test/cmake_install.cmake")
+  include("/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/cmake_install.cmake")
+  include("/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/test/cmake_install.cmake")
 
 endif()
 
@@ -52,5 +52,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

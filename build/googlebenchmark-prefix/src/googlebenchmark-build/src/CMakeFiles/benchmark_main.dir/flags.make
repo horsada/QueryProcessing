@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=c++11  -Wall  -Wextra  -Wshadow  -fstrict-aliasing  -Wno-depr
 
 CXX_DEFINES = -DHAVE_POSIX_REGEX -DHAVE_STD_REGEX -DHAVE_STEADY_CLOCK
 
-CXX_INCLUDES = -I/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/include -I/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/src -I/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/src/../include 
+CXX_INCLUDES = -I/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/include -I/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/src -I/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/src/../include 
 

@@ -1,4 +1,4 @@
-# Install script for directory: /homes/ah2719/Advanced_Databases/Query_Processing_ah2719
+# Install script for directory: /home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

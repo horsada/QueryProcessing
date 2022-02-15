@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -pthread -std=gnu++17
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -isystem /homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/deps/include 
+CXX_INCLUDES = -isystem /home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/deps/include 
 

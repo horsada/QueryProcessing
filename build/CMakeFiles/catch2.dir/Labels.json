@@ -2,34 +2,34 @@
 	"sources" : 
 	[
 		{
-			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/CMakeFiles/catch2"
+			"file" : "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/CMakeFiles/catch2"
 		},
 		{
-			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/CMakeFiles/catch2.rule"
+			"file" : "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/CMakeFiles/catch2.rule"
 		},
 		{
-			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/CMakeFiles/catch2-complete.rule"
+			"file" : "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/CMakeFiles/catch2-complete.rule"
 		},
 		{
-			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-install.rule"
+			"file" : "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-install.rule"
 		},
 		{
-			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-mkdir.rule"
+			"file" : "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-mkdir.rule"
 		},
 		{
-			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-download.rule"
+			"file" : "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-download.rule"
 		},
 		{
-			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-update.rule"
+			"file" : "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-update.rule"
 		},
 		{
-			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-patch.rule"
+			"file" : "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-patch.rule"
 		},
 		{
-			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-configure.rule"
+			"file" : "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-configure.rule"
 		},
 		{
-			"file" : "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-build.rule"
+			"file" : "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-stamp/catch2-build.rule"
 		}
 	],
 	"target" : 

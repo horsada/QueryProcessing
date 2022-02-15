@@ -1,8 +1,8 @@
-# Install script for directory: /homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/src
+# Install script for directory: /home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/deps")
+  set(CMAKE_INSTALL_PREFIX "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/deps")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,33 +38,33 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/libbenchmark.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/libbenchmark.a")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/libbenchmark_main.a")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE STATIC_LIBRARY FILES "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/libbenchmark_main.a")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/include/benchmark" FILES_MATCHING REGEX "/[^/]*\\.[^/]*h$")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/include/benchmark" FILES_MATCHING REGEX "/[^/]*\\.[^/]*h$")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/benchmark" TYPE FILE FILES
-    "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/generated/benchmarkConfig.cmake"
-    "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/generated/benchmarkConfigVersion.cmake"
+    "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/generated/benchmarkConfig.cmake"
+    "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/generated/benchmarkConfigVersion.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/generated/benchmark.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/generated/benchmark.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/benchmark/benchmarkTargets.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/benchmark/benchmarkTargets.cmake"
-         "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/CMakeFiles/Export/lib/cmake/benchmark/benchmarkTargets.cmake")
+         "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/CMakeFiles/Export/lib/cmake/benchmark/benchmarkTargets.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/benchmark/benchmarkTargets-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -73,9 +73,9 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/benchmark" TYPE FILE FILES "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/CMakeFiles/Export/lib/cmake/benchmark/benchmarkTargets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/benchmark" TYPE FILE FILES "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/CMakeFiles/Export/lib/cmake/benchmark/benchmarkTargets.cmake")
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/benchmark" TYPE FILE FILES "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/CMakeFiles/Export/lib/cmake/benchmark/benchmarkTargets-debug.cmake")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/benchmark" TYPE FILE FILES "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark-build/src/CMakeFiles/Export/lib/cmake/benchmark/benchmarkTargets-debug.cmake")
   endif()
 endif()
 

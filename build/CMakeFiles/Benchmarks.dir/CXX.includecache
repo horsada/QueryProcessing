@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/Benchmarks/AdvancedDB2022Coursework1Benchmarks.cpp
+/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/Benchmarks/AdvancedDB2022Coursework1Benchmarks.cpp
 ../Source/AdvancedDB2022Coursework1.hpp
-/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/Source/AdvancedDB2022Coursework1.hpp
+/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/Source/AdvancedDB2022Coursework1.hpp
 algorithm
 -
 array
@@ -26,11 +26,23 @@ string
 variant
 -
 
-/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/Source/AdvancedDB2022Coursework1.cpp
+/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/Source/AdvancedDB2022Coursework1.cpp
 AdvancedDB2022Coursework1.hpp
-/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/Source/AdvancedDB2022Coursework1.hpp
+/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/Source/AdvancedDB2022Coursework1.hpp
+array
+-
+cstdlib
+-
+tuple
+-
+variant
+-
+vector
+-
+iostream
+-
 
-/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/Source/AdvancedDB2022Coursework1.hpp
+/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/Source/AdvancedDB2022Coursework1.hpp
 array
 -
 cstdlib

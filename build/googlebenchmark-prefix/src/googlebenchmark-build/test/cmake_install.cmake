@@ -1,8 +1,8 @@
-# Install script for directory: /homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/test
+# Install script for directory: /home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/googlebenchmark-prefix/src/googlebenchmark/test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/deps")
+  set(CMAKE_INSTALL_PREFIX "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/deps")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

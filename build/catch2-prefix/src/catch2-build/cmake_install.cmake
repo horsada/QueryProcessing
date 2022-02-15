@@ -1,8 +1,8 @@
-# Install script for directory: /homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2
+# Install script for directory: /home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/deps")
+  set(CMAKE_INSTALL_PREFIX "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/deps")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -41,7 +41,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/Catch2/Catch2Targets.cmake")
     file(DIFFERENT EXPORT_FILE_CHANGED FILES
          "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/Catch2/Catch2Targets.cmake"
-         "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/Export/lib/cmake/Catch2/Catch2Targets.cmake")
+         "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/Export/lib/cmake/Catch2/Catch2Targets.cmake")
     if(EXPORT_FILE_CHANGED)
       file(GLOB OLD_CONFIG_FILES "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/cmake/Catch2/Catch2Targets-*.cmake")
       if(OLD_CONFIG_FILES)
@@ -50,37 +50,37 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
       endif()
     endif()
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/Catch2" TYPE FILE FILES "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/Export/lib/cmake/Catch2/Catch2Targets.cmake")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/Catch2" TYPE FILE FILES "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/Export/lib/cmake/Catch2/Catch2Targets.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2/single_include/")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2/single_include/")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/Catch2" TYPE FILE FILES
-    "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/Catch2Config.cmake"
-    "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/Catch2ConfigVersion.cmake"
+    "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/Catch2Config.cmake"
+    "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/Catch2ConfigVersion.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/cmake/Catch2" TYPE FILE FILES
-    "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2/contrib/ParseAndAddCatchTests.cmake"
-    "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2/contrib/Catch.cmake"
-    "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2/contrib/CatchAddTests.cmake"
+    "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2/contrib/ParseAndAddCatchTests.cmake"
+    "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2/contrib/Catch.cmake"
+    "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2/contrib/CatchAddTests.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/Catch2" TYPE FILE FILES
-    "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2/contrib/gdbinit"
-    "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2/contrib/lldbinit"
+    "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2/contrib/gdbinit"
+    "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2/contrib/lldbinit"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/pkgconfig" TYPE FILE FILES "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/catch2.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/pkgconfig" TYPE FILE FILES "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/catch2.pc")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -91,5 +91,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

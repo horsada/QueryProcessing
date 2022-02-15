@@ -22,14 +22,14 @@ function(check_file_hash has_hash hash_is_good)
   set("${has_hash}" TRUE PARENT_SCOPE)
 
   message(STATUS "verifying file...
-       file='/homes/ah2719/.cmake-downloads/master.zip'")
+       file='/home/ah2719/.cmake-downloads/master.zip'")
 
-  file("" "/homes/ah2719/.cmake-downloads/master.zip" actual_value)
+  file("" "/home/ah2719/.cmake-downloads/master.zip" actual_value)
 
   if(NOT "${actual_value}" STREQUAL "")
     set("${hash_is_good}" FALSE PARENT_SCOPE)
     message(STATUS " hash of
-    /homes/ah2719/.cmake-downloads/master.zip
+    /home/ah2719/.cmake-downloads/master.zip
   does not match expected value
     expected: ''
       actual: '${actual_value}'")
@@ -71,7 +71,7 @@ function(sleep_before_download attempt)
   execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep "${sleep_seconds}")
 endfunction()
 
-if("/homes/ah2719/.cmake-downloads/master.zip" STREQUAL "")
+if("/home/ah2719/.cmake-downloads/master.zip" STREQUAL "")
   message(FATAL_ERROR "LOCAL can't be empty")
 endif()
 
@@ -79,32 +79,32 @@ if("https://github.com/little-big-h/benchmark/archive/master.zip" STREQUAL "")
   message(FATAL_ERROR "REMOTE can't be empty")
 endif()
 
-if(EXISTS "/homes/ah2719/.cmake-downloads/master.zip")
+if(EXISTS "/home/ah2719/.cmake-downloads/master.zip")
   check_file_hash(has_hash hash_is_good)
   if(has_hash)
     if(hash_is_good)
       message(STATUS "File already exists and hash match (skip download):
-  file='/homes/ah2719/.cmake-downloads/master.zip'
+  file='/home/ah2719/.cmake-downloads/master.zip'
   =''"
       )
       return()
     else()
       message(STATUS "File already exists but hash mismatch. Removing...")
-      file(REMOVE "/homes/ah2719/.cmake-downloads/master.zip")
+      file(REMOVE "/home/ah2719/.cmake-downloads/master.zip")
     endif()
   else()
     message(STATUS "File already exists but no hash specified (use URL_HASH):
-  file='/homes/ah2719/.cmake-downloads/master.zip'
+  file='/home/ah2719/.cmake-downloads/master.zip'
 Old file will be removed and new file downloaded from URL."
     )
-    file(REMOVE "/homes/ah2719/.cmake-downloads/master.zip")
+    file(REMOVE "/home/ah2719/.cmake-downloads/master.zip")
   endif()
 endif()
 
 set(retry_number 5)
 
 message(STATUS "Downloading...
-   dst='/homes/ah2719/.cmake-downloads/master.zip'
+   dst='/home/ah2719/.cmake-downloads/master.zip'
    timeout='none'"
 )
 
@@ -121,7 +121,7 @@ foreach(i RANGE ${retry_number})
 
     file(
         DOWNLOAD
-        "${url}" "/homes/ah2719/.cmake-downloads/master.zip"
+        "${url}" "/home/ah2719/.cmake-downloads/master.zip"
         SHOW_PROGRESS
         # no TIMEOUT
         STATUS status
@@ -137,7 +137,7 @@ foreach(i RANGE ${retry_number})
       check_file_hash(has_hash hash_is_good)
       if(has_hash AND NOT hash_is_good)
         message(STATUS "Hash mismatch, removing...")
-        file(REMOVE "/homes/ah2719/.cmake-downloads/master.zip")
+        file(REMOVE "/home/ah2719/.cmake-downloads/master.zip")
       else()
         message(STATUS "Downloading... done")
         return()

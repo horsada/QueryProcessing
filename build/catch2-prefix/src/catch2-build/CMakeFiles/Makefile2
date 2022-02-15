@@ -44,10 +44,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2
+CMAKE_SOURCE_DIR = /home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /homes/ah2719/Advanced_Databases/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build
+CMAKE_BINARY_DIR = /home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build
 
 #=============================================================================
 # Directory level rules for the build root directory
