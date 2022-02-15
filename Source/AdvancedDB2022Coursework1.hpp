@@ -88,9 +88,9 @@ void printRelation(Relation a){
     }
 }
 
-  void Testswap(AttributeValue& a, AttributeValue& b){
+  void Testswap(Tuple& a, Tuple& b){
     //printf("Entered Testswap\n, a = %d, b = %d\n", a, b);
-    AttributeValue t = a;
+    Tuple t = a;
     a = b;
     b = t;
   }
@@ -109,21 +109,24 @@ void printRelation(Relation a){
           if (getLongValue(arr.at(j).at(0)) <= getLongValue(pivot)){
             //printf("Entered partition long if statement\n");
             i++;    // increment index of smaller element
-            Testswap(arr.at(i).at(0), arr.at(j).at(0));
+            //Testswap(arr.at(i).at(0), arr.at(j).at(0));
+            Testswap(arr.at(i), arr.at(j));
           }
         }
         else if( (getAttributeValueType(pivot) == 1) && (getAttributeValueType(arr.at(j).at(0)) == 1) ){
           if ((int)getDoubleValue(arr.at(j).at(0)) <= (int)getDoubleValue(pivot)){
             //printf("Entered partition double if statement\n");
             i++;    // increment index of smaller element
-            Testswap(arr.at(i).at(0), arr.at(j).at(0));
+            //Testswap(arr.at(i).at(0), arr.at(j).at(0));
+            Testswap(arr.at(i), arr.at(j));
           }
         }
         else if( (getAttributeValueType(pivot) == 2) && (getAttributeValueType(arr.at(j).at(0)) == 2) ){
           if (getStringValue(arr.at(j).at(0)) <= getStringValue(pivot)){
             //printf("Entered partition string if statement\n");
             i++;    // increment index of smaller element
-            Testswap(arr.at(i).at(0), arr.at(j).at(0));
+            //Testswap(arr.at(i).at(0), arr.at(j).at(0));
+            Testswap(arr.at(i), arr.at(j));
           }
         }
         else{
@@ -133,7 +136,7 @@ void printRelation(Relation a){
     //printf("After partition if statement. i = %d\n", i);
     if((i+1) < (high-1)){
       if(getAttributeValueType(arr.at(i+1).at(0)) == getAttributeValueType(arr.at(high-1).at(0))){
-        Testswap(arr.at(i + 1).at(0), arr.at(high-1).at(0));
+        Testswap(arr.at(i + 1), arr.at(high-1));
       }
     }
     //printf("Before returning from partition\n");
@@ -142,15 +145,6 @@ void printRelation(Relation a){
 
   void TestquickSort(Relation& arr, int low, int high){
     //printf("Entered Quicksort\n");
-    std::vector<AttributeValue> arr_a;
-    for(int i = 0; i < arr.size(); i++){
-      // check for nullptr
-      if(getAttributeValueType(arr.at(i).at(0)) == 2){
-        if(getStringValue(arr.at(i).at(0)) == nullptr);
-        continue;
-      }
-      arr_a.push_back(arr.at(i).at(0));
-    }
     int pi;
     //printf("After arr_a pushback\n");
     //printf("arr_a size: %d\n", arr_a.size());
@@ -365,6 +359,7 @@ long runQuery(long threshold = 9) {
           continue;
         }
         else{
+         // printf("getStringValue(probeInput) = %d\n", atoi(getStringValue(probeInput)));
           string_hashValue = atoi(getStringValue(probeInput)) % 10;
         }
         //printf("Before while loop, probeInput type String. probeInput = %d, hashValue = %d\n", 
@@ -374,10 +369,11 @@ long runQuery(long threshold = 9) {
         while(hashTable.at(string_hashValue) != -1 &&  hashTable.at(string_hashValue) 
         != atoi(getStringValue(probeInput))){
           string_hashValue = (string_hashValue++) % 10;
-      }
+        }
         if(hashTable.at(string_hashValue) == atoi(getStringValue(probeInput))){
           int index = getIndex(large2_a.begin(), large2_a.end(), 2, probeInput);
           if(index == -1){
+            //printf("Entered index == -1 of string probe\n");
             continue;
           }
           small_hash_join.push_back(small.at(i));
@@ -402,6 +398,8 @@ long runQuery(long threshold = 9) {
     }
     printf("After small_hash_join Quicksort:\n");
     printRelation(small_hash_join);
+    //printf("Before large1 Quicksort:\n");
+    //printRelation(large1);
     if(large1.size() > 1){
       TestquickSort(large1, 0, large1.size());
     }
@@ -417,7 +415,9 @@ long runQuery(long threshold = 9) {
       auto rightInput = large1.at(rightI).at(0);
       size_t leftInputType = getAttributeValueType(leftInput);
       size_t rightInputType = getAttributeValueType(rightInput);
+      //printf("leftInputType = %d, rightInputType = %d\n", leftInputType, rightInputType);
       if(leftInputType == 0 && rightInputType == 0){
+        //printf("Entered Long merge\n");
         leftInput = getLongValue(small_hash_join.at(leftI).at(0));
         rightInput = getLongValue(large1.at(rightI).at(0));
       }
@@ -430,6 +430,16 @@ long runQuery(long threshold = 9) {
         leftInput = getStringValue(small_hash_join.at(leftI).at(0));
         rightInput = getStringValue(large1.at(rightI).at(0));
       }
+      else if(rightInputType == 2){
+        //printf("Entered else if(rightInputType == 2)\n");
+        rightI++;
+        continue;
+      }
+      else if(leftInputType == 2){
+        //printf("Entered else if(leftInputType == 2)\n");
+        leftI++;
+        continue;
+      }
       else{
         //printf("Incorrect type\n");
       }
@@ -440,7 +450,7 @@ long runQuery(long threshold = 9) {
         rightI++;
       }
       else{
-        //printf("Before large_merge_join pushback\n");
+        printf("Before large_merge_join pushback\n");
         small_hash_join.at(leftI).push_back(large1.at(rightI).at(1));
         small_hash_join.at(leftI).push_back(large1.at(rightI).at(2));
         rightI++;
