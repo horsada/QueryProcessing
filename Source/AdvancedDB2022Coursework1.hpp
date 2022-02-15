@@ -444,7 +444,6 @@ long TestrunQuery(Relation large1, Relation large2, Relation small, long thresho
          *getLongValue(small_hash_join.at(i).at(6));
        }
     }
-    /*
     for(int i = 0; i < small_hash_join.size(); i++){
       if(z*getLongValue(small_hash_join[i][1]) + y*getLongValue(small_hash_join[i][3])
        + x*getLongValue(small_hash_join[i][5]) > threshold){
@@ -452,7 +451,7 @@ long TestrunQuery(Relation large1, Relation large2, Relation small, long thresho
          *getLongValue(small_hash_join[i][6]);
        }
     }
-    */
+    
     return sum;
   }
 };
