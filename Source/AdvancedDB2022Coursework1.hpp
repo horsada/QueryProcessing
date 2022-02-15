@@ -67,25 +67,22 @@ public:
   }
 void printRelation(Relation a){
     for(int i = 0; i < a.size(); i++){
-        printf("i: %d", i); 
         for(int j = 0; j < a[i].size(); j++){
-          prinf("j: %d", j);
           if(getAttributeValueType(a.at(i).at(j)) == 0){
             printf(" %d", getLongValue(a.at(i).at(j)));
           }
           else if(getAttributeValueType(a.at(i).at(j)) == 1){
-            printf(" %d\n", getDoubleValue(a.at(i).at(j)));
+            printf(" %d", getDoubleValue(a.at(i).at(j)));
           }
           else if(getAttributeValueType(a.at(i).at(j)) == 2){
             if(getStringValue(a.at(i).at(j)) == nullptr){
               continue;
             }
-            printf(" %d\n", getStringValue(a.at(i).at(j)));
+            printf(" %d", getStringValue(a.at(i).at(j)));
           }
           else{
             printf("Incorrect type\n");
           }
-          printf("\n");
         }
         printf("\n");
     }
@@ -203,7 +200,7 @@ void printRelation(Relation a){
         continue;
       }  
     }
-    printf("Returning index = %d\n", index);
+    //printf("Returning index = %d\n", index);
     return index;
   }
 
@@ -322,7 +319,7 @@ long runQuery(long threshold = 9) {
       if(getAttributeValueType(probeInput) == 0){
         long_hashValue = abs(getLongValue(probeInput) % 10);
         //printf("Before while loop, probeInput type Long. probeInput = %d, hashValue = %d\n", 
-        getLongValue(probeInput), long_hashValue);
+        //getLongValue(probeInput), long_hashValue);
         //printf("Relation small size: %d\n", small.size());
         //printf("Relation large2 size: %d\n", large2.size());
         while(hashTable.at(long_hashValue) != -1 &&  hashTable.at(long_hashValue) != getLongValue(probeInput)){
@@ -343,7 +340,7 @@ long runQuery(long threshold = 9) {
       else if(getAttributeValueType(probeInput) == 1){
         double_hashValue = abs((int)getDoubleValue(probeInput) % 10);
         //printf("Before while loop, probeInput type Double. probeInput = %d, hashValue = %d\n", 
-        (int)getDoubleValue(probeInput), double_hashValue);
+        //(int)getDoubleValue(probeInput), double_hashValue);
         //printf("Relation small size: %d\n", small.size());
         //printf("Relation large2 size: %d\n", large2.size());
         while(hashTable.at(double_hashValue) != -1 &&  
@@ -371,7 +368,7 @@ long runQuery(long threshold = 9) {
           string_hashValue = atoi(getStringValue(probeInput)) % 10;
         }
         //printf("Before while loop, probeInput type String. probeInput = %d, hashValue = %d\n", 
-        atoi(getStringValue(probeInput)), string_hashValue);
+        //atoi(getStringValue(probeInput)), string_hashValue);
         //printf("Relation small size: %d\n", small.size());
         //printf("Relation large2 size: %d\n", large2.size());
         while(hashTable.at(string_hashValue) != -1 &&  hashTable.at(string_hashValue) 
@@ -395,21 +392,21 @@ long runQuery(long threshold = 9) {
       }
       //printf("Exited for loop\n");
     }
-    printf("Before Quicksort:\n");
+    //printf("Before Quicksort:\n");
     //printf("small_hash_join size: %d\n", small_hash_join.size());
-    printRelation(small_hash_join);
+    //printRelation(small_hash_join);
     // 2. small_hash_join = large1 -> sort-merge join
     // a. Quicksort
     if(small_hash_join.size() > 1){
       TestquickSort(small_hash_join, 0, small_hash_join.size());
     }
-    //printf("After small_hash_join Quicksort:\n");
-    //printRelation(small_hash_join);
+    printf("After small_hash_join Quicksort:\n");
+    printRelation(small_hash_join);
     if(large1.size() > 1){
       TestquickSort(large1, 0, large1.size());
     }
-    //printf("After large1 Quicksort:\n");
-    //printRelation(large1);
+    printf("After large1 Quicksort:\n");
+    printRelation(large1);
     // b. Merge data
     auto leftI = 0;
     auto rightI = 0;
@@ -454,6 +451,9 @@ long runQuery(long threshold = 9) {
     printf("small_hash_join (size = %d): \n", small_hash_join.size());
     printRelation(small_hash_join);
 
+    if(small_hash_join.size() == 0){
+      return 0L;
+    }
     long calc = 0;
     //printf("calc before for loop: %d\n", calc);
     for(int i = 0; i < small_hash_join.size(); i++){
