@@ -67,24 +67,27 @@ public:
   }
 void printRelation(Relation a){
     for(int i = 0; i < a.size(); i++){
-        printf("i: %d\n", i); 
+        printf("i: %d", i); 
         for(int j = 0; j < a[i].size(); j++){
+          prinf("j: %d", j);
           if(getAttributeValueType(a.at(i).at(j)) == 0){
-            //printf("j: %d, value: %d\n", j, getLongValue(a.at(i).at(j)));
+            printf(" %d", getLongValue(a.at(i).at(j)));
           }
           else if(getAttributeValueType(a.at(i).at(j)) == 1){
-            //printf("j: %d, value: %d\n", j, getDoubleValue(a.at(i).at(j)));
+            printf(" %d\n", getDoubleValue(a.at(i).at(j)));
           }
           else if(getAttributeValueType(a.at(i).at(j)) == 2){
             if(getStringValue(a.at(i).at(j)) == nullptr){
               continue;
             }
-            //printf("j: %d, value: %d\n", j, getStringValue(a.at(i).at(j)));
+            printf(" %d\n", getStringValue(a.at(i).at(j)));
           }
           else{
-            //printf("Incorrect type\n");
+            printf("Incorrect type\n");
           }
+          printf("\n");
         }
+        printf("\n");
     }
 }
 
@@ -167,7 +170,7 @@ void printRelation(Relation a){
   // for finding index of element
   int getIndex(std::vector<AttributeValue>::iterator beg, 
     std::vector<AttributeValue>::iterator end, size_t type, AttributeValue val){
-    printf("Entered getIndex\n");
+    //printf("Entered getIndex\n");
     int index = -1;
     size_t beg_type = getAttributeValueType(*beg);
     for (auto it = beg; it != end; ++it){
@@ -213,7 +216,7 @@ long runQuery(long threshold = 9) {
     std::vector<AttributeValue> large1_a, large2_a, small_a;
     Relation small_hash_join;
     std::vector<AttributeValue> threshold_calc;
-    printf("Before creating large1_a and large2_a\n");
+    //printf("Before creating large1_a and large2_a\n");
     // creating large2_a and large1_a
     for(int i = 0; i < large2.size(); i++){
       size_t val = getAttributeValueType(large2.at(i).at(0));
@@ -246,11 +249,11 @@ long runQuery(long threshold = 9) {
       }
     }
 
-    printf("Before build phase:\n");
+    //printf("Before build phase:\n");
     // 1. Large2.a = small.a -> Hash join
     // a. Build phase
     std::vector<long> hashTable(large2.size()*2, -1);
-    printf("hashTable (size = %d):\n", hashTable.size());
+    //printf("hashTable (size = %d):\n", hashTable.size());
     for(size_t i = 0; i < large2.size(); i++) {
       long long_hashValue = -1;
       double double_hashValue = -1.0;
@@ -258,29 +261,29 @@ long runQuery(long threshold = 9) {
       int attribute_type = getAttributeValueType(large2.at(i).at(0));
       if(attribute_type == 0){
         long_hashValue = getLongValue(large2.at(i).at(0)) % 10; // hash-function
-        printf("After hash function. Hash value = %d\n", long_hashValue);
+        //printf("After hash function. Hash value = %d\n", long_hashValue);
         while(hashTable[long_hashValue] != -1){
-          printf("Entered while hashTable[hashValue] != -1. hashValue = %d\n", long_hashValue);
+          //printf("Entered while hashTable[hashValue] != -1. hashValue = %d\n", long_hashValue);
           // probe function
           long_hashValue += 1; 
           long_hashValue %= 10;
         } 
-        printf("Entering value into hashTable\n");
+        //printf("Entering value into hashTable\n");
         hashTable.at(long_hashValue) = getLongValue(large2.at(i).at(0));
-        printf("New hashtable value: %d\n", hashTable.at(long_hashValue));
+        //printf("New hashtable value: %d\n", hashTable.at(long_hashValue));
       }
       else if(attribute_type == 1){
         double_hashValue = (int)getDoubleValue(large2.at(i).at(0)) % 10; // hash-function
-        printf("After hash function. Hash value = %f\n", double_hashValue);
+        //printf("After hash function. Hash value = %f\n", double_hashValue);
           while(hashTable[double_hashValue] != -1){
           printf("Entered while hashTable[hashValue] != -1. hashValue = %d\n", double_hashValue);
           // probe function
           double_hashValue += 1.0; 
           double_hashValue = (int)double_hashValue % 10;
         } 
-        printf("Entering value into hashTable\n");
+        //printf("Entering value into hashTable\n");
         hashTable.at((int)double_hashValue) = (int)getDoubleValue(large2.at(i).at(0));
-        printf("New hashtable value: %d\n", hashTable.at((int)double_hashValue));
+        //printf("New hashtable value: %d\n", hashTable.at((int)double_hashValue));
       }
       else if(attribute_type == 2){
         if(getStringValue(large2.at(i).at(0)) != nullptr){
@@ -289,22 +292,22 @@ long runQuery(long threshold = 9) {
         else{
           continue;
         }
-        printf("After hash function in string. Hash value = %f\n", string_hashValue);
+        //printf("After hash function in string. Hash value = %f\n", string_hashValue);
         while(hashTable[string_hashValue] != -1){
-          printf("Entered while hashTable[hashValue] != -1. hashValue = %d\n", string_hashValue);
+          //printf("Entered while hashTable[hashValue] != -1. hashValue = %d\n", string_hashValue);
           // probe function
           string_hashValue += 1; 
           string_hashValue = string_hashValue % 10;
         } 
-        printf("Entering value into hashTable\n");
+        //printf("Entering value into hashTable\n");
         hashTable.at(string_hashValue) = atoi(getStringValue(large2.at(i).at(0)));
-        printf("New hashtable value: %d\n", hashTable.at(string_hashValue));
+        //printf("New hashtable value: %d\n", hashTable.at(string_hashValue));
       }
       else{
         printf("Incorrect type\n");
       }
     }
-    printf("After build phase\n");
+    //printf("After build phase\n");
     /*printf("hashTable:\n");
     for(int i = 0; i < hashTable.size(); i++){
       printf("hashTable at index %d: %d\n", i, hashTable.at(i));
@@ -318,10 +321,10 @@ long runQuery(long threshold = 9) {
       long string_hashValue = -1;
       if(getAttributeValueType(probeInput) == 0){
         long_hashValue = abs(getLongValue(probeInput) % 10);
-        printf("Before while loop, probeInput type Long. probeInput = %d, hashValue = %d\n", 
+        //printf("Before while loop, probeInput type Long. probeInput = %d, hashValue = %d\n", 
         getLongValue(probeInput), long_hashValue);
-        printf("Relation small size: %d\n", small.size());
-        printf("Relation large2 size: %d\n", large2.size());
+        //printf("Relation small size: %d\n", small.size());
+        //printf("Relation large2 size: %d\n", large2.size());
         while(hashTable.at(long_hashValue) != -1 &&  hashTable.at(long_hashValue) != getLongValue(probeInput)){
           long_hashValue = (long_hashValue++) % 10;
       }
@@ -331,7 +334,7 @@ long runQuery(long threshold = 9) {
             continue;
           }
           small_hash_join.push_back(small.at(i));
-          printf("Entered type=Long if statement\n");
+          //printf("Entered type=Long if statement\n");
           // find index of a value in large2 table:
           small_hash_join.at(i).push_back(large2.at(index).at(1));
           small_hash_join.at(i).push_back(large2.at(index).at(2));
@@ -339,16 +342,16 @@ long runQuery(long threshold = 9) {
       }
       else if(getAttributeValueType(probeInput) == 1){
         double_hashValue = abs((int)getDoubleValue(probeInput) % 10);
-        printf("Before while loop, probeInput type Double. probeInput = %d, hashValue = %d\n", 
+        //printf("Before while loop, probeInput type Double. probeInput = %d, hashValue = %d\n", 
         (int)getDoubleValue(probeInput), double_hashValue);
-        printf("Relation small size: %d\n", small.size());
-        printf("Relation large2 size: %d\n", large2.size());
+        //printf("Relation small size: %d\n", small.size());
+        //printf("Relation large2 size: %d\n", large2.size());
         while(hashTable.at(double_hashValue) != -1 &&  
         hashTable.at(double_hashValue) != (int)getDoubleValue(probeInput)){
           double_hashValue = ((int)double_hashValue++) % 10;
       }
         if(hashTable.at(double_hashValue) == getDoubleValue(probeInput)){
-          printf("Entered type=Double if statement\n");
+          //printf("Entered type=Double if statement\n");
           int index = getIndex(large2_a.begin(), large2_a.end(), 1, probeInput);
           if(index == -1){
             continue;
@@ -360,17 +363,17 @@ long runQuery(long threshold = 9) {
         }
       }
       else if(getAttributeValueType(probeInput) == 2){
-        printf("Entered string probe phase\n");
+        //printf("Entered string probe phase\n");
         if(getStringValue(probeInput) == nullptr){
           continue;
         }
         else{
           string_hashValue = atoi(getStringValue(probeInput)) % 10;
         }
-        printf("Before while loop, probeInput type String. probeInput = %d, hashValue = %d\n", 
+        //printf("Before while loop, probeInput type String. probeInput = %d, hashValue = %d\n", 
         atoi(getStringValue(probeInput)), string_hashValue);
-        printf("Relation small size: %d\n", small.size());
-        printf("Relation large2 size: %d\n", large2.size());
+        //printf("Relation small size: %d\n", small.size());
+        //printf("Relation large2 size: %d\n", large2.size());
         while(hashTable.at(string_hashValue) != -1 &&  hashTable.at(string_hashValue) 
         != atoi(getStringValue(probeInput))){
           string_hashValue = (string_hashValue++) % 10;
@@ -381,7 +384,7 @@ long runQuery(long threshold = 9) {
             continue;
           }
           small_hash_join.push_back(small.at(i));
-          printf("Entered type=String if statement\n");
+          //printf("Entered type=String if statement\n");
           // find index of a value in large2 table:
           small_hash_join.at(i).push_back(large2.at(index).at(1));
           small_hash_join.at(i).push_back(large2.at(index).at(2));
@@ -390,29 +393,29 @@ long runQuery(long threshold = 9) {
       else{
         break;
       }
-      printf("Exited for loop\n");
+      //printf("Exited for loop\n");
     }
     printf("Before Quicksort:\n");
-    printf("small_hash_join size: %d\n", small_hash_join.size());
+    //printf("small_hash_join size: %d\n", small_hash_join.size());
     printRelation(small_hash_join);
     // 2. small_hash_join = large1 -> sort-merge join
     // a. Quicksort
     if(small_hash_join.size() > 1){
       TestquickSort(small_hash_join, 0, small_hash_join.size());
     }
-    printf("After small_hash_join Quicksort:\n");
-    printRelation(small_hash_join);
+    //printf("After small_hash_join Quicksort:\n");
+    //printRelation(small_hash_join);
     if(large1.size() > 1){
       TestquickSort(large1, 0, large1.size());
     }
-    printf("After large1 Quicksort:\n");
-    printRelation(large1);
+    //printf("After large1 Quicksort:\n");
+    //printRelation(large1);
     // b. Merge data
     auto leftI = 0;
     auto rightI = 0;
 
     while (leftI < small_hash_join.size() && rightI < large1.size()) {
-      printf("leftI: %d, rightI: %d\n", leftI, rightI);
+      //printf("leftI: %d, rightI: %d\n", leftI, rightI);
       auto leftInput = small_hash_join.at(leftI).at(0);
       auto rightInput = large1.at(rightI).at(0);
       size_t leftInputType = getAttributeValueType(leftInput);
@@ -426,12 +429,12 @@ long runQuery(long threshold = 9) {
         rightInput = getDoubleValue(large1.at(rightI).at(0));
       }
       else if(leftInputType == 2 && rightInputType == 2){
-        printf("Entered String merge\n");
+        //printf("Entered String merge\n");
         leftInput = getStringValue(small_hash_join.at(leftI).at(0));
         rightInput = getStringValue(large1.at(rightI).at(0));
       }
       else{
-        printf("Incorrect type\n");
+        //printf("Incorrect type\n");
       }
       if(leftInput < rightInput){
         leftI++;
@@ -440,7 +443,7 @@ long runQuery(long threshold = 9) {
         rightI++;
       }
       else{
-        printf("Before large_merge_join pushback\n");
+        //printf("Before large_merge_join pushback\n");
         small_hash_join.at(leftI).push_back(large1.at(rightI).at(1));
         small_hash_join.at(leftI).push_back(large1.at(rightI).at(2));
         rightI++;
@@ -452,23 +455,23 @@ long runQuery(long threshold = 9) {
     printRelation(small_hash_join);
 
     long calc = 0;
-    printf("calc before for loop: %d\n", calc);
+    //printf("calc before for loop: %d\n", calc);
     for(int i = 0; i < small_hash_join.size(); i++){
       if(small_hash_join.at(i).size() > 1){
       calc += z*getLongValue(small_hash_join.at(i).at(1));
       }
       if(small_hash_join.at(i).size() > 3){
-        printf("Entered if(small_hash_join.at(i).size() > 2)\n");
+        //printf("Entered if(small_hash_join.at(i).size() > 2)\n");
         calc += y*getLongValue(small_hash_join.at(i).at(3));
       }
       if(small_hash_join.at(i).size() > 5){
-        printf("Entered if(small_hash_join.at(i).size() > 4)\n");
+        //printf("Entered if(small_hash_join.at(i).size() > 4)\n");
         calc += x*getLongValue(small_hash_join.at(i).at(5));
       }
     }
-    printf("Calc after loop: %d\n", calc);
+    //printf("Calc after loop: %d\n", calc);
     if(calc > threshold){
-      printf("Entered threshold if statement\n");
+      //printf("Entered threshold if statement\n");
     for(int i = 0; i < small_hash_join.size(); i++){
         if(small_hash_join.at(i).size() > 2){
          sum *= getLongValue(small_hash_join.at(i).at(2));
