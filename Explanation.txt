@@ -1,0 +1,9 @@
+Challenges of the coursework
+
+Challenge 1: Dealing with different types in the data:
+    - Having different types in column a meant a significant amount of code 
+    was placed on type checking. As we could not use the <assert> library, 
+    this was done using if statements along witht he helper functions.
+    - nullptr's: nullptr's were dealt with by ensuring they would never be dereferenced.
+    For example, nullptr if statements were done in the hash table, and during sorting
+    the nullptr rows were removed 
