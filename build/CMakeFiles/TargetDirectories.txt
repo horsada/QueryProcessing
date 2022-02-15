@@ -1,6 +1,0 @@
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/CMakeFiles/edit_cache.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/CMakeFiles/Benchmarks.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/CMakeFiles/Tests.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/CMakeFiles/catch2.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/CMakeFiles/rebuild_cache.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/CMakeFiles/googlebenchmark.dir

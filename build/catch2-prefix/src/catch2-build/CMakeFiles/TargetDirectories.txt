@@ -1,8 +1,0 @@
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/install/strip.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/install/local.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/edit_cache.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/package_source.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/install.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/list_install_components.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/rebuild_cache.dir
-/home/ah2719/Advanced_Databases/Coursework1/Query_Processing_ah2719/build/catch2-prefix/src/catch2-build/CMakeFiles/package.dir

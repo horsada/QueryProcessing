@@ -1,1 +1,0 @@
-/usr/bin/c++    -std=c++11  -Wall  -Wextra  -Wshadow  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -g   CMakeFiles/internal_threading_test.dir/internal_threading_test.cc.o  -o internal_threading_test  liboutput_test_helper.a ../src/libbenchmark.a -pthread /usr/lib/x86_64-linux-gnu/librt.so 

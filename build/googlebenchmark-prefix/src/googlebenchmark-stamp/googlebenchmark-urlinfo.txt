@@ -1,3 +1,0 @@
-repository='external project URL'
-module='https://github.com/little-big-h/benchmark/archive/master.zip'
-tag=''

@@ -1,1 +1,0 @@
-/usr/bin/c++    -std=c++11  -Wall  -Wextra  -Wshadow  -fstrict-aliasing  -Wno-deprecated-declarations  -Wstrict-aliasing -g   CMakeFiles/register_benchmark_test.dir/register_benchmark_test.cc.o  -o register_benchmark_test  ../src/libbenchmark.a -pthread /usr/lib/x86_64-linux-gnu/librt.so 
