@@ -1,7 +1,7 @@
 Challenges of the coursework
 
 Challenge 1: Functionality
-    - Having different types in column a meant a significant amount of code 
+    - Data types: Having different types in column a meant a significant amount of code 
     was placed on type checking. As we could not use the <assert> library, 
     this was done using if statements along witht he helper functions.
     - nullptr's: nullptr's were dealt with by ensuring they would never be dereferenced.
@@ -12,6 +12,19 @@ Challenge 1: Functionality
     - Duplicates: Duplicates were dealt with in the merge phase by iterating through the 
     result of the previous join to ensure all hash-join.a values would be checked
     against the current large1.a value, only if an initial match was made.
+    - Hash-table size: As suggested in the lecture notes, the hash-table was initialised
+    with a size double that of the larger relation, large2.
 
 Challenge 2: Optimisations
-    - 
+    - Join order: The hash-join is done before the sort-merge join. This is due to the hash-join
+    having a smaller sized relation (small) than the other 2, larger tables. Thus, the output of
+    the hash-join will be smaller and so the sort-merge can be done faster (less values to sort) 
+    than if it was the other way round. 
+    - Type checking: Type checking was done such that it is relatively simple to add code that 
+    would allow all 3 variable types in any of the 3 columns. 
+
+Further Work:
+Due to time contraints, the following optimisations were not implemented, but provide
+a natural progression to improve the performance of the implementation:
+    - Metadata (e.g. isSorted, isDense).
+    - Expand code to allow tuple/double types in columns b and c

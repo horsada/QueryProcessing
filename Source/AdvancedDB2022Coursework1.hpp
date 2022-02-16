@@ -187,7 +187,7 @@ void printRelation(Relation a){
       }
       else if(type == 2 && beg_type == 2){
         if (atoi(getStringValue(*it)) == atoi(getStringValue(val))){
-          printf("Entered type == 2 if statement\n");
+          //printf("Entered type == 2 if statement\n");
           index = abs(std::distance(it, beg));
           break;
         }
@@ -201,6 +201,13 @@ void printRelation(Relation a){
   }
 
 long runQuery(long threshold = 9) {
+    printf("Relations:\n");
+    printf("Large1:\n");
+    printRelation(large1);
+    printf("Large2:\n");
+    printRelation(large2);
+    printf("small:\n");
+    printRelation(small);
     auto sum = 0L;
     // You should add your implementation here...
     int x = 1;
@@ -209,7 +216,7 @@ long runQuery(long threshold = 9) {
     std::vector<AttributeValue> large1_a, large2_a, small_a;
     Relation small_hash_join;
     std::vector<AttributeValue> threshold_calc;
-    printf("Before creating large1_a and large2_a\n");
+    //printf("Before creating large1_a and large2_a\n");
     // creating large2_a and large1_a
     for(int i = 0; i < large2.size(); i++){
       size_t val = getAttributeValueType(large2.at(i).at(0));
@@ -242,7 +249,7 @@ long runQuery(long threshold = 9) {
       }
     }
 
-    printf("Before build phase:\n");
+    //printf("Before build phase:\n");
     // 1. Large2.a = small.a -> Hash join
     // a. Build phase
     std::vector<long> hashTable(large2.size()*2, -1);
@@ -269,7 +276,7 @@ long runQuery(long threshold = 9) {
         double_hashValue = (int)getDoubleValue(large2.at(i).at(0)) % 10; // hash-function
         //printf("After hash function. Hash value = %f\n", double_hashValue);
           while(hashTable[double_hashValue] != -1){
-          printf("Entered while hashTable[hashValue] != -1. hashValue = %d\n", double_hashValue);
+          //printf("Entered while hashTable[hashValue] != -1. hashValue = %d\n", double_hashValue);
           // probe function
           double_hashValue += 1.0; 
           double_hashValue = (int)double_hashValue % 10;
@@ -300,7 +307,7 @@ long runQuery(long threshold = 9) {
         printf("Incorrect type\n");
       }
     }
-    printf("After build phase\n");
+    //printf("After build phase\n");
     /*printf("hashTable:\n");
     for(int i = 0; i < hashTable.size(); i++){
       printf("hashTable at index %d: %d\n", i, hashTable.at(i));
@@ -393,7 +400,7 @@ long runQuery(long threshold = 9) {
       }
       //printf("Exited for loop\n");
     }
-    printf("After probe phase\n");
+    printf("Finish hash-join\n");
     //printf("Before Quicksort:\n");
     //printf("small_hash_join size: %d\n", small_hash_join.size());
     //printRelation(small_hash_join);
@@ -432,7 +439,7 @@ long runQuery(long threshold = 9) {
         rightInput = getDoubleValue(large1.at(rightI).at(0));
       }
       else if(leftInputType == 2 && rightInputType == 2){
-        printf("Entered String merge\n");
+        //printf("Entered String merge\n");
         leftInput = getStringValue(small_hash_join.at(leftI).at(0));
         rightInput = getStringValue(large1.at(rightI).at(0));
       }
@@ -456,12 +463,12 @@ long runQuery(long threshold = 9) {
         rightI++;
       }
       else{
-        printf("Before large_merge_join pushback\n");
+        //printf("Before large_merge_join pushback\n");
         for(int i = 0; i < small_hash_join.size(); i++){
-          printf("Entered for loop\n");
+          //printf("Entered for loop\n");
           if(leftInputType == 0 && rightInputType == 0){
             if(getLongValue(large1.at(rightI).at(0)) == getLongValue(small_hash_join.at(i).at(0))){
-            printf("Entered long if statement of for loop\n");
+            //printf("Entered long if statement of for loop\n");
             small_hash_join.at(i).push_back(large1.at(rightI).at(1));
             small_hash_join.at(i).push_back(large1.at(rightI).at(2));
             }
@@ -469,14 +476,14 @@ long runQuery(long threshold = 9) {
           else if(leftInputType == 1 && rightInputType == 1){
             if((int)getDoubleValue(large1.at(rightI).at(0)) 
             == (int)getDoubleValue(small_hash_join.at(i).at(0))){
-            printf("Entered if statement of for loop\n");
+            //printf("Entered if statement of for loop\n");
             small_hash_join.at(i).push_back(large1.at(rightI).at(1));
             small_hash_join.at(i).push_back(large1.at(rightI).at(2));
             }
           }
           else if(leftInputType == 2 && rightInputType == 2){
             if(getStringValue(large1.at(rightI).at(0)) == getStringValue(small_hash_join.at(i).at(0))){
-            printf("Entered String if statement of for loop\n");
+            //printf("Entered String if statement of for loop\n");
             small_hash_join.at(i).push_back(large1.at(rightI).at(1));
             small_hash_join.at(i).push_back(large1.at(rightI).at(2));
             }
