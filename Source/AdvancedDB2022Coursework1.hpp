@@ -97,7 +97,7 @@ void printRelation(Relation a){
 
   int Testpartition(Relation& arr, int low, int high){
     //printf("high =  %d\n", high);
-    AttributeValue pivot = arr.at(high-1).at(0);    // pivot
+    AttributeValue pivot = arr.at(high).at(0);    // pivot
     int i = (low - 1);  // Index of smaller element
     //printf("Pivot = %d, Before partition for loop\n", pivot);
     for (int j = low; j < high; j++)
@@ -109,7 +109,6 @@ void printRelation(Relation a){
           if (getLongValue(arr.at(j).at(0)) <= getLongValue(pivot)){
             //printf("Entered partition long if statement\n");
             i++;    // increment index of smaller element
-            //Testswap(arr.at(i).at(0), arr.at(j).at(0));
             Testswap(arr.at(i), arr.at(j));
           }
         }
@@ -117,7 +116,6 @@ void printRelation(Relation a){
           if ((int)getDoubleValue(arr.at(j).at(0)) <= (int)getDoubleValue(pivot)){
             //printf("Entered partition double if statement\n");
             i++;    // increment index of smaller element
-            //Testswap(arr.at(i).at(0), arr.at(j).at(0));
             Testswap(arr.at(i), arr.at(j));
           }
         }
@@ -125,7 +123,6 @@ void printRelation(Relation a){
           if (getStringValue(arr.at(j).at(0)) <= getStringValue(pivot)){
             //printf("Entered partition string if statement\n");
             i++;    // increment index of smaller element
-            //Testswap(arr.at(i).at(0), arr.at(j).at(0));
             Testswap(arr.at(i), arr.at(j));
           }
         }
@@ -134,27 +131,28 @@ void printRelation(Relation a){
         }
     }
     //printf("After partition if statement. i = %d\n", i);
+    /*
     if((i+1) >= (high-1)){
+      printf("Entered if((i+1) >= (high-1))\n");
       return (i + 1);
     }
-    else{
+    else{*/
       if(getAttributeValueType(arr.at(i+1).at(0)) == getAttributeValueType(arr.at(high-1).at(0))){
-        Testswap(arr.at(i + 1), arr.at(high-1));
+        Testswap(arr.at(i + 1), arr.at(high));
       }
-    }
+    //}
     //printf("Before returning from partition\n");
     return (i + 1);
   }
 
   void TestquickSort(Relation& arr, int low, int high){
     //printf("Entered Quicksort\n");
-    int pi;
     //printf("After arr_a pushback\n");
     //printf("arr_a size: %d\n", arr_a.size());
     if (low < high){
         // Separately sort elements before partition and after partition
         //printf("Before Testpartition\n");
-        pi = Testpartition(arr, low, high);
+        int pi = Testpartition(arr, low, high);
         //printf("After Testpartition\n");
         TestquickSort(arr, low, pi - 1);
         TestquickSort(arr, pi + 1, high);
@@ -402,14 +400,14 @@ long runQuery(long threshold = 9) {
     // 2. small_hash_join = large1 -> sort-merge join
     // a. Quicksort
     if(small_hash_join.size() > 1){
-      TestquickSort(small_hash_join, 0, small_hash_join.size());
+      TestquickSort(small_hash_join, 0, small_hash_join.size()-1);
     }
     printf("After small_hash_join Quicksort:\n");
     printRelation(small_hash_join);
     //printf("Before large1 Quicksort:\n");
     //printRelation(large1);
     if(large1.size() > 1){
-      TestquickSort(large1, 0, large1.size());
+      TestquickSort(large1, 0, large1.size()-1);
     }
     printf("After large1 Quicksort:\n");
     printRelation(large1);
@@ -463,7 +461,7 @@ long runQuery(long threshold = 9) {
           printf("Entered for loop\n");
           if(leftInputType == 0 && rightInputType == 0){
             if(getLongValue(large1.at(rightI).at(0)) == getLongValue(small_hash_join.at(i).at(0))){
-            printf("Entered if statement of for loop\n");
+            printf("Entered long if statement of for loop\n");
             small_hash_join.at(i).push_back(large1.at(rightI).at(1));
             small_hash_join.at(i).push_back(large1.at(rightI).at(2));
             }
