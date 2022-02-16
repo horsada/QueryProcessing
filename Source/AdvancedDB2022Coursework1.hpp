@@ -134,7 +134,10 @@ void printRelation(Relation a){
         }
     }
     //printf("After partition if statement. i = %d\n", i);
-    if((i+1) < (high-1)){
+    if((i+1) >= (high-1)){
+      return (i + 1);
+    }
+    else{
       if(getAttributeValueType(arr.at(i+1).at(0)) == getAttributeValueType(arr.at(high-1).at(0))){
         Testswap(arr.at(i + 1), arr.at(high-1));
       }
@@ -313,8 +316,8 @@ long runQuery(long threshold = 9) {
       long string_hashValue = -1;
       if(getAttributeValueType(probeInput) == 0){
         long_hashValue = abs(getLongValue(probeInput) % 10);
-        printf("Before while loop, probeInput type Long. probeInput = %d, hashValue = %d\n", 
-        getLongValue(probeInput), long_hashValue);
+        //printf("Before while loop, probeInput type Long. probeInput = %d, hashValue = %d\n", 
+        //getLongValue(probeInput), long_hashValue);
         //printf("Relation small size: %d\n", small.size());
         //printf("Relation large2 size: %d\n", large2.size());
         while(hashTable.at(long_hashValue) != -1 &&  hashTable.at(long_hashValue) != getLongValue(probeInput)){
@@ -322,14 +325,13 @@ long runQuery(long threshold = 9) {
       }
         if(hashTable.at(long_hashValue) == getLongValue(probeInput)){
           int index = getIndex(large2_a.begin(), large2_a.end(), 0, probeInput);
-          printf("index  = %d\n", index);
+          //printf("index  = %d\n", index);
           if(index == -1){
             continue;
           }
           small_hash_join.push_back(small.at(i));
-          printf("Entered type=Long if statement\n");
+          //printf("Entered type=Long if statement\n");
           // find index of a value in large2 table:
-          printRelation(small_hash_join);
           small_hash_join.at(small_hash_join.size()-1).push_back(large2.at(index).at(1));
           small_hash_join.at(small_hash_join.size()-1).push_back(large2.at(index).at(2));
         }
@@ -357,32 +359,32 @@ long runQuery(long threshold = 9) {
         }
       }
       else if(getAttributeValueType(probeInput) == 2){
-        printf("Entered string probe phase\n");
+        //printf("Entered string probe phase\n");
         if(getStringValue(probeInput) == nullptr){
           continue;
         }
         else{
-          printf("getStringValue(probeInput) = %d\n", atoi(getStringValue(probeInput)));
+          //printf("getStringValue(probeInput) = %d\n", atoi(getStringValue(probeInput)));
           string_hashValue = atoi(getStringValue(probeInput)) % 10;
         }
-        printf("Before while loop, probeInput type String. probeInput = %d, hashValue = %d\n", 
-        atoi(getStringValue(probeInput)), string_hashValue);
-        printf("Relation small size: %d\n", small.size());
-        printf("Relation large2 size: %d\n", large2.size());
+        //printf("Before while loop, probeInput type String. probeInput = %d, hashValue = %d\n", 
+        //atoi(getStringValue(probeInput)), string_hashValue);
+        //printf("Relation small size: %d\n", small.size());
+        //printf("Relation large2 size: %d\n", large2.size());
         while(hashTable.at(string_hashValue) != -1 &&  hashTable.at(string_hashValue) 
         != atoi(getStringValue(probeInput))){
           string_hashValue = (string_hashValue++) % 10;
         }
         if(hashTable.at(string_hashValue) == atoi(getStringValue(probeInput))){
           int index = getIndex(large2_a.begin(), large2_a.end(), 2, probeInput);
-          printf("index = %d\n", index);
+          //printf("index = %d\n", index);
           if(index == -1){
             //printf("Entered index == -1 of string probe\n");
             continue;
           }
           small_hash_join.push_back(small.at(i));
-          printf("Entered type=String if statement\n");
-          printf("Index = %d\n", index);
+          //printf("Entered type=String if statement\n");
+          //printf("Index = %d\n", index);
           // find index of a value in large2 table:
           small_hash_join.at(i).push_back(large2.at(index).at(1));
           small_hash_join.at(i).push_back(large2.at(index).at(2));
@@ -432,7 +434,7 @@ long runQuery(long threshold = 9) {
         rightInput = getDoubleValue(large1.at(rightI).at(0));
       }
       else if(leftInputType == 2 && rightInputType == 2){
-        //printf("Entered String merge\n");
+        printf("Entered String merge\n");
         leftInput = getStringValue(small_hash_join.at(leftI).at(0));
         rightInput = getStringValue(large1.at(rightI).at(0));
       }
@@ -457,12 +459,32 @@ long runQuery(long threshold = 9) {
       }
       else{
         printf("Before large_merge_join pushback\n");
-        for(int i = leftI; i < small_hash_join.size(); i++){
+        for(int i = 0; i < small_hash_join.size(); i++){
           printf("Entered for loop\n");
-          if(getLongValue(large1.at(rightI).at(0)) == getLongValue(small_hash_join.at(i).at(0))){
+          if(leftInputType == 0 && rightInputType == 0){
+            if(getLongValue(large1.at(rightI).at(0)) == getLongValue(small_hash_join.at(i).at(0))){
             printf("Entered if statement of for loop\n");
             small_hash_join.at(i).push_back(large1.at(rightI).at(1));
             small_hash_join.at(i).push_back(large1.at(rightI).at(2));
+            }
+          }
+          else if(leftInputType == 1 && rightInputType == 1){
+            if((int)getDoubleValue(large1.at(rightI).at(0)) 
+            == (int)getDoubleValue(small_hash_join.at(i).at(0))){
+            printf("Entered if statement of for loop\n");
+            small_hash_join.at(i).push_back(large1.at(rightI).at(1));
+            small_hash_join.at(i).push_back(large1.at(rightI).at(2));
+            }
+          }
+          else if(leftInputType == 2 && rightInputType == 2){
+            if(getStringValue(large1.at(rightI).at(0)) == getStringValue(small_hash_join.at(i).at(0))){
+            printf("Entered String if statement of for loop\n");
+            small_hash_join.at(i).push_back(large1.at(rightI).at(1));
+            small_hash_join.at(i).push_back(large1.at(rightI).at(2));
+            }
+          }
+          else{
+            printf("Incorrect type\n");
           }
         }
         rightI++;
