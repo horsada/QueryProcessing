@@ -208,7 +208,7 @@ long runQuery(long threshold = 9) {
     std::vector<AttributeValue> large1_a, large2_a, small_a;
     Relation small_hash_join;
     std::vector<AttributeValue> threshold_calc;
-    //printf("Before creating large1_a and large2_a\n");
+    printf("Before creating large1_a and large2_a\n");
     // creating large2_a and large1_a
     for(int i = 0; i < large2.size(); i++){
       size_t val = getAttributeValueType(large2.at(i).at(0));
@@ -241,7 +241,7 @@ long runQuery(long threshold = 9) {
       }
     }
 
-    //printf("Before build phase:\n");
+    printf("Before build phase:\n");
     // 1. Large2.a = small.a -> Hash join
     // a. Build phase
     std::vector<long> hashTable(large2.size()*2, -1);
@@ -299,7 +299,7 @@ long runQuery(long threshold = 9) {
         printf("Incorrect type\n");
       }
     }
-    //printf("After build phase\n");
+    printf("After build phase\n");
     /*printf("hashTable:\n");
     for(int i = 0; i < hashTable.size(); i++){
       printf("hashTable at index %d: %d\n", i, hashTable.at(i));
@@ -313,8 +313,8 @@ long runQuery(long threshold = 9) {
       long string_hashValue = -1;
       if(getAttributeValueType(probeInput) == 0){
         long_hashValue = abs(getLongValue(probeInput) % 10);
-        //printf("Before while loop, probeInput type Long. probeInput = %d, hashValue = %d\n", 
-        //getLongValue(probeInput), long_hashValue);
+        printf("Before while loop, probeInput type Long. probeInput = %d, hashValue = %d\n", 
+        getLongValue(probeInput), long_hashValue);
         //printf("Relation small size: %d\n", small.size());
         //printf("Relation large2 size: %d\n", large2.size());
         while(hashTable.at(long_hashValue) != -1 &&  hashTable.at(long_hashValue) != getLongValue(probeInput)){
@@ -322,14 +322,16 @@ long runQuery(long threshold = 9) {
       }
         if(hashTable.at(long_hashValue) == getLongValue(probeInput)){
           int index = getIndex(large2_a.begin(), large2_a.end(), 0, probeInput);
+          printf("index  = %d\n", index);
           if(index == -1){
             continue;
           }
           small_hash_join.push_back(small.at(i));
-          //printf("Entered type=Long if statement\n");
+          printf("Entered type=Long if statement\n");
           // find index of a value in large2 table:
-          small_hash_join.at(i).push_back(large2.at(index).at(1));
-          small_hash_join.at(i).push_back(large2.at(index).at(2));
+          printRelation(small_hash_join);
+          small_hash_join.at(small_hash_join.size()-1).push_back(large2.at(index).at(1));
+          small_hash_join.at(small_hash_join.size()-1).push_back(large2.at(index).at(2));
         }
       }
       else if(getAttributeValueType(probeInput) == 1){
@@ -391,6 +393,7 @@ long runQuery(long threshold = 9) {
       }
       //printf("Exited for loop\n");
     }
+    printf("After probe phase\n");
     //printf("Before Quicksort:\n");
     //printf("small_hash_join size: %d\n", small_hash_join.size());
     //printRelation(small_hash_join);
