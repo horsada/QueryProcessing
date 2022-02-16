@@ -454,8 +454,14 @@ long runQuery(long threshold = 9) {
       }
       else{
         printf("Before large_merge_join pushback\n");
-        small_hash_join.at(leftI).push_back(large1.at(rightI).at(1));
-        small_hash_join.at(leftI).push_back(large1.at(rightI).at(2));
+        for(int i = leftI; i < small_hash_join.size(); i++){
+          printf("Entered for loop\n");
+          if(getLongValue(large1.at(rightI).at(0)) == getLongValue(small_hash_join.at(i).at(0))){
+            printf("Entered if statement of for loop\n");
+            small_hash_join.at(i).push_back(large1.at(rightI).at(1));
+            small_hash_join.at(i).push_back(large1.at(rightI).at(2));
+          }
+        }
         rightI++;
         leftI++;
       }
